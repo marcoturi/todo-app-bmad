@@ -1,10 +1,18 @@
 ---
-project_name: 'todo-app-bmad'
-user_name: 'Marco'
-date: '2026-03-07'
+project_name: "todo-app-bmad"
+user_name: "Marco"
+date: "2026-03-07"
 sections_completed:
-  ['technology_stack', 'language_rules', 'framework_rules', 'testing_rules', 'quality_rules', 'workflow_rules', 'anti_patterns']
-status: 'complete'
+  [
+    "technology_stack",
+    "language_rules",
+    "framework_rules",
+    "testing_rules",
+    "quality_rules",
+    "workflow_rules",
+    "anti_patterns",
+  ]
+status: "complete"
 optimized_for_llm: true
 ---
 
@@ -41,33 +49,33 @@ todo-app-bmad/
 
 ### Frontend (`apps/web`)
 
-| Layer | Technology | Version |
-|---|---|---|
-| Build | Vite + React + SWC | Vite 7.3.1, React 19.2.4 |
-| Language | TypeScript | 5.9.3 |
-| State | Redux Toolkit (RTK Query, Immer, Reselect) | 2.11.2 |
-| UI | Radix UI + shadcn/ui + Tailwind CSS | Tailwind 4.2.1 |
-| Linting/Formatting | Biome | 2.4.6 |
-| Unit/Integration tests | Vitest + Testing Library + jsdom | Vitest 4.0.18 |
-| E2E tests | Cucumber + Playwright | Playwright 1.58.2 |
-| API mocking | MSW + @mswjs/data | MSW 2.12.10 |
-| Monitoring | Sentry | 10.42.0 |
-| Router | React Router DOM | 7.13.1 |
+| Layer                  | Technology                                 | Version                  |
+| ---------------------- | ------------------------------------------ | ------------------------ |
+| Build                  | Vite + React + SWC                         | Vite 7.3.1, React 19.2.4 |
+| Language               | TypeScript                                 | 5.9.3                    |
+| State                  | Redux Toolkit (RTK Query, Immer, Reselect) | 2.11.2                   |
+| UI                     | Radix UI + shadcn/ui + Tailwind CSS        | Tailwind 4.2.1           |
+| Linting/Formatting     | Biome                                      | 2.4.6                    |
+| Unit/Integration tests | Vitest + Testing Library + jsdom           | Vitest 4.0.18            |
+| E2E tests              | Cucumber + Playwright                      | Playwright 1.58.2        |
+| API mocking            | MSW + @mswjs/data                          | MSW 2.12.10              |
+| Monitoring             | Sentry                                     | 10.42.0                  |
+| Router                 | React Router DOM                           | 7.13.1                   |
 
 ### Backend (`apps/api`)
 
-| Layer | Technology | Version |
-|---|---|---|
-| Runtime | Node.js native TypeScript (no build step) | ≥ 24 |
-| Framework | Fastify + Awilix DI + Pino logging | Fastify 5.8.2 |
-| Language | TypeScript | 5.9.3 |
-| API | REST only (TypeBox schemas + Swagger UI) | — |
-| Database | postgres.js + DBMate migrations | postgres.js 3.4.8 |
-| Linting/Formatting | Biome | 2.4.6 |
-| Unit/Integration tests | node:test + c8 coverage | — |
-| E2E tests | Cucumber + Gherkin | 12.7.0 |
-| Load tests | k6 | — |
-| Telemetry | OpenTelemetry (disabled by default) | — |
+| Layer                  | Technology                                | Version           |
+| ---------------------- | ----------------------------------------- | ----------------- |
+| Runtime                | Node.js native TypeScript (no build step) | ≥ 24              |
+| Framework              | Fastify + Awilix DI + Pino logging        | Fastify 5.8.2     |
+| Language               | TypeScript                                | 5.9.3             |
+| API                    | REST only (TypeBox schemas + Swagger UI)  | —                 |
+| Database               | postgres.js + DBMate migrations           | postgres.js 3.4.8 |
+| Linting/Formatting     | Biome                                     | 2.4.6             |
+| Unit/Integration tests | node:test + c8 coverage                   | —                 |
+| E2E tests              | Cucumber + Gherkin                        | 12.7.0            |
+| Load tests             | k6                                        | —                 |
+| Telemetry              | OpenTelemetry (disabled by default)       | —                 |
 
 ### Shared (`packages/shared`)
 
@@ -157,6 +165,7 @@ Route → Handler → Domain → Repository
 **Schemas**
 
 - Use TypeBox (`Type.Object`, `Type.String`, etc.) for all request/response schemas.
+- **Before defining a new schema or type, check `@todo-app/shared` first** — reuse directly if the type exists there, or derive from it (e.g. `Type.Pick`, `Type.Omit`, `Type.Intersect`) rather than duplicating.
 - Schema files are named `<command|query>.schema.ts` and co-located with their handler.
 
 ---
@@ -310,6 +319,7 @@ src/
 - ❌ Never put business logic in route files.
 - ❌ Never use `npm` or `yarn` — pnpm only.
 - ❌ Never add enums — use `const` objects with derived types.
+- ❌ Never define a schema or type that already exists in `@todo-app/shared` — reuse it directly or derive via `Type.Pick`/`Type.Omit`/`Type.Intersect`.
 
 **Frontend**
 
@@ -325,6 +335,7 @@ src/
 
 - ❌ Never define a database service per app — Docker Compose is at the monorepo root only.
 - ❌ Never duplicate REST request/response types between `apps/web` and `apps/api` — put them in `packages/shared`.
+- ❌ Never inline a schema or type in `apps/api` or `apps/web` when an equivalent already exists in `packages/shared` — check `@todo-app/shared` first.
 - ❌ Never run `pnpm install` inside a workspace directly — run from the monorepo root.
 
 ---

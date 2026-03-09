@@ -180,6 +180,7 @@ SQL parameterization rules:
 ### API
 - All REST routes are prefixed with `/api` (configured in `src/server/index.ts`)
 - Schemas use TypeBox (`Type.Object`, `Type.String`, etc.)
+- **Before defining a new schema or type, check `@todo-app/shared` first** — reuse directly if it exists, or derive from it (e.g. `Type.Pick`, `Type.Omit`, `Type.Intersect`) rather than duplicating
 - Routes handle HTTP concerns only — no business logic in routes
 - GraphQL resolvers co-locate with their REST route counterparts
 
@@ -230,3 +231,4 @@ SQL parameterization rules:
 - **Using snake_case keys in `DbModel` types** — `transform: postgres.camel` is active; always use `camelCase` (see Database section above)
 - **Manually duplicating `id`/`description`/`completed` in `DomainEntity`** — derive from the shared wire type: `type FooEntity = Omit<Foo, 'createdAt' | 'updatedAt'> & { createdAt: Date; updatedAt: Date }`
 - **Creating passthrough DTO files** (`dtos/foo.response.dto.ts` that only re-export from shared) — import from `@todo-app/shared` directly in route/schema files
+- **Defining schemas or types that already exist in `@todo-app/shared`** — always check `@todo-app/shared` first; reuse directly or derive via `Type.Pick`/`Type.Omit`/`Type.Intersect` instead of duplicating

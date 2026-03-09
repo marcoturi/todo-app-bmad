@@ -94,3 +94,90 @@ Then(
     }
   },
 );
+
+// ── Create Todo steps ────────────────────────────────────────────────────────
+
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+When(
+  'I create a todo with description {string}',
+  async function (this: ICustomWorld, description: string) {
+    this.context.latestResponse = await this.server.inject({
+      method: 'POST',
+      url: '/api/v1/todos',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ description }),
+    });
+  },
+);
+
+When(
+  'I create a todo with a description of {int} characters',
+  async function (this: ICustomWorld, length: number) {
+    const description = 'a'.repeat(length);
+    this.context.latestResponse = await this.server.inject({
+      method: 'POST',
+      url: '/api/v1/todos',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ description }),
+    });
+  },
+);
+
+When('I create a todo with no description field', async function (this: ICustomWorld) {
+  this.context.latestResponse = await this.server.inject({
+    method: 'POST',
+    url: '/api/v1/todos',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({}),
+  });
+});
+
+Then('I receive a 201 response', function (this: ICustomWorld) {
+  assert.equal(this.context.latestResponse!.statusCode, 201);
+  assert.ok(
+    this.context.latestResponse!.headers['content-type']?.includes('application/json'),
+    'Content-Type must be application/json',
+  );
+});
+
+Then('I receive a 400 response', function (this: ICustomWorld) {
+  assert.equal(this.context.latestResponse!.statusCode, 400);
+  const body = this.context.latestResponse!.json();
+  assert.ok(typeof body.statusCode === 'number', 'RFC 9457: must have statusCode');
+  assert.ok(typeof body.error === 'string', 'RFC 9457: must have error string');
+  assert.ok(typeof body.message === 'string', 'RFC 9457: must have message string');
+});
+
+Then(
+  'the response body contains a todo with description {string}',
+  function (this: ICustomWorld, description: string) {
+    const body = this.context.latestResponse!.json();
+    assert.equal(body.description, description);
+  },
+);
+
+Then('the todo has completed status false', function (this: ICustomWorld) {
+  const body = this.context.latestResponse!.json();
+  assert.equal(body.completed, false);
+});
+
+Then('the todo has a valid UUID id', function (this: ICustomWorld) {
+  const body = this.context.latestResponse!.json();
+  assert.ok(UUID_REGEX.test(body.id), `id must be a valid UUID, got: ${body.id}`);
+});
+
+Then(
+  'the todo has valid ISO 8601 createdAt and updatedAt timestamps',
+  function (this: ICustomWorld) {
+    const body = this.context.latestResponse!.json();
+    assert.ok(
+      ISO_8601_REGEX.test(body.createdAt),
+      `createdAt must be ISO 8601, got: ${body.createdAt}`,
+    );
+    assert.ok(
+      ISO_8601_REGEX.test(body.updatedAt),
+      `updatedAt must be ISO 8601, got: ${body.updatedAt}`,
+    );
+  },
+);

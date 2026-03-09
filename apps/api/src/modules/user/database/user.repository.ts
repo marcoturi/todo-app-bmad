@@ -6,6 +6,7 @@ import type {
 import { type UserEntity, UserRoles } from '#src/modules/user/domain/user.types.ts';
 import { joinConditions } from '#src/shared/db/postgres.ts';
 import type { Paginated, PaginatedQueryParams } from '#src/shared/db/repository.port.ts';
+import { ConflictException, DatabaseErrorException } from '#src/shared/exceptions/index.ts';
 
 export const userSchema = Type.Object({
   id: Type.String({ format: 'uuid' }),
@@ -28,9 +29,34 @@ export default function userRepository({
   return {
     ...repositoryBase({ tableName, mapper: userMapper }),
 
+    async insert(entity: UserEntity | UserEntity[]): Promise<void> {
+      const entities = Array.isArray(entity) ? entity : [entity];
+      const records = entities.map(userMapper.toPersistence);
+      try {
+        for (const record of records) {
+          await db`
+            INSERT INTO users (id, "createdAt", "updatedAt", email, country, "postalCode", street, role)
+            VALUES (
+              ${record.id}, ${record.createdAt}, ${record.updatedAt},
+              ${record.email}, ${record.country}, ${record.postalCode},
+              ${record.street}, ${record.role}
+            )
+          `;
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error && 'code' in error && error.code === '23505') {
+          throw new ConflictException('Record already exists', error);
+        }
+        throw new DatabaseErrorException(
+          'Unknown database error',
+          error instanceof Error ? error : new Error(String(error)),
+        );
+      }
+    },
+
     async findOneByEmail(email: string): Promise<UserEntity | undefined> {
       const [user]: [UserModel?] =
-        await db`SELECT * FROM ${tableName} WHERE email = ${email} LIMIT 1`;
+        await db`SELECT * FROM ${db(tableName)} WHERE email = ${email} LIMIT 1`;
       return user ? userMapper.toDomain(user) : undefined;
     },
 

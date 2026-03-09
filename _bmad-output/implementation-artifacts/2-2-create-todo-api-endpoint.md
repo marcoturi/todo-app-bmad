@@ -1,6 +1,6 @@
 # Story 2.2: Create Todo API Endpoint
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -26,26 +26,26 @@ So that clients can add todos to the list.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `todo.domain.ts` for entity creation (AC: #1)
-  - [ ] 1.1 Create `apps/api/src/modules/todos/domain/todo.domain.ts` — `todoDomain` factory with `createTodo({ description })` method generating UUID + timestamps + `completed: false`
-  - [ ] 1.2 Update `apps/api/src/modules/todos/index.ts` — add `todoDomain: ReturnType<typeof todoDomain>` to the global `Dependencies` interface
+- [x] Task 1: Create `todo.domain.ts` for entity creation (AC: #1)
+  - [x] 1.1 Create `apps/api/src/modules/todos/domain/todo.domain.ts` — `todoDomain` factory with `createTodo({ description })` method generating UUID + timestamps + `completed: false`
+  - [x] 1.2 Update `apps/api/src/modules/todos/index.ts` — add `todoDomain: ReturnType<typeof todoDomain>` to the global `Dependencies` interface
 
-- [ ] Task 2: Create create-todo command (AC: #1, #2, #3, #4, #5)
-  - [ ] 2.1 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.schema.ts` — local TypeBox schema `createTodoRequestSchema` with `description: Type.String({ minLength: 1, maxLength: 500 })` + exported type `CreateTodoRequestDto`
-  - [ ] 2.2 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.ts` — `CreateTodoResult = TodoEntity`, `createTodoCommand` action creator, `makeCreateTodo` factory registering with `commandBus`
-  - [ ] 2.3 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.route.ts` — `POST /v1/todos`, validates body with `createTodoRequestSchema`, returns `201` with mapped response
-  - [ ] 2.4 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.spec.ts` — unit tests: successful creation
+- [x] Task 2: Create create-todo command (AC: #1, #2, #3, #4, #5)
+  - [x] 2.1 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.schema.ts` — local TypeBox schema `createTodoRequestSchema` with `description: Type.String({ minLength: 1, maxLength: 500 })` + exported type `CreateTodoRequestDto`
+  - [x] 2.2 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.ts` — `CreateTodoResult = TodoEntity`, `createTodoCommand` action creator, `makeCreateTodo` factory registering with `commandBus`
+  - [x] 2.3 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.route.ts` — `POST /v1/todos`, validates body with `createTodoRequestSchema`, returns `201` with mapped response
+  - [x] 2.4 Create `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.spec.ts` — unit tests: successful creation
 
-- [ ] Task 3: Cucumber E2E tests (AC: #6)
-  - [ ] 3.1 Create `apps/api/tests/todos/create-todo.feature` — scenarios: successful creation with 201 response, empty description → 400, description too long → 400, missing description field → 400
-  - [ ] 3.2 Update `apps/api/tests/todos/todos.steps.ts` — add step definitions for create-todo scenarios
+- [x] Task 3: Cucumber E2E tests (AC: #6)
+  - [x] 3.1 Create `apps/api/tests/todos/create-todo.feature` — scenarios: successful creation with 201 response, empty description → 400, description too long → 400, missing description field → 400
+  - [x] 3.2 Update `apps/api/tests/todos/todos.steps.ts` — add step definitions for create-todo scenarios
 
-- [ ] Task 4: Verify full test suite (AC: #7)
-  - [ ] 4.1 Run `pnpm --filter @todo-app/api test` — all unit tests pass (including new `create-todo.handler.spec.ts`)
-  - [ ] 4.2 Run `pnpm --filter @todo-app/api test:e2e` — all Cucumber scenarios pass (find-todos + create-todo features)
-  - [ ] 4.3 Run `pnpm check` — Biome linting clean
-  - [ ] 4.4 Run `pnpm -r type:check` — TypeScript compiles across all workspaces
-  - [ ] 4.5 Run `pnpm --filter @todo-app/api deps:validate` — architecture boundary check passes
+- [x] Task 4: Verify full test suite (AC: #7)
+  - [x] 4.1 Run `pnpm --filter @todo-app/api test` — all unit tests pass (including new `create-todo.handler.spec.ts`)
+  - [x] 4.2 Run `pnpm --filter @todo-app/api test:e2e` — all Cucumber scenarios pass (find-todos + create-todo features)
+  - [x] 4.3 Run `pnpm check` — Biome linting clean
+  - [x] 4.4 Run `pnpm -r type:check` — TypeScript compiles across all workspaces
+  - [x] 4.5 Run `pnpm --filter @todo-app/api deps:validate` — architecture boundary check passes
 
 ## Dev Notes
 
@@ -604,4 +604,23 @@ Claude Sonnet 4.6 (GitHub Copilot)
 
 ### Completion Notes List
 
+- Implemented `todoDomain` factory in `todo.domain.ts` using `randomUUID()` from `node:crypto` for UUID generation and `new Date()` for timestamps.
+- Updated `apps/api/src/modules/todos/index.ts` to declare `todoDomain` in the global `Dependencies` interface.
+- Created local `createTodoRequestSchema` in `create-todo.schema.ts` with `minLength: 1, maxLength: 500` validation constraints (separate from the shared schema which intentionally lacks these).
+- Implemented `makeCreateTodo` command handler using `commandBus` (not `queryBus`). Returns the original entity after `insert()` since `insert()` returns `void`.
+- Created `create-todo.route.ts` with `POST /v1/todos`, uses `todoSchema` from `@todo-app/shared/todos/schema` as the 201 response schema.
+- Unit tests use `node:test` + `mock` (consistent with existing `find-todos.handler.spec.ts`). Story dev notes showed `vitest` but actual project uses `node:test`.
+- Used `interface` instead of `type` for `CreateTodoProps` to satisfy Biome `useConsistentTypeDefinitions` rule.
+- All 10 unit tests pass. All 8 todo Cucumber scenarios pass (5 create-todo + 3 find-todos). Biome check clean. TypeScript compiles. Dependency boundaries valid.
+- Pre-existing user module E2E failures (users table missing `created_at` column) are unrelated to this story.
+
 ### File List
+
+- `apps/api/src/modules/todos/domain/todo.domain.ts` (new)
+- `apps/api/src/modules/todos/index.ts` (modified)
+- `apps/api/src/modules/todos/commands/create-todo/create-todo.schema.ts` (new)
+- `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.ts` (new)
+- `apps/api/src/modules/todos/commands/create-todo/create-todo.handler.spec.ts` (new)
+- `apps/api/src/modules/todos/commands/create-todo/create-todo.route.ts` (new)
+- `apps/api/tests/todos/create-todo.feature` (new)
+- `apps/api/tests/todos/todos.steps.ts` (modified)

@@ -43,7 +43,7 @@ development_status:
   # ─────────────────────────────────────────────
   # Epic 1: Project Foundation
   # ─────────────────────────────────────────────
-  epic-1: in-progress
+  epic-1: done
   1-1-monorepo-scaffolding-and-boilerplate-initialization: done
   1-2-database-infrastructure-setup: done
   1-3-shared-types-package: done
@@ -57,7 +57,7 @@ development_status:
   # ─────────────────────────────────────────────
   epic-2: in-progress
   2-1-find-todos-api-endpoint: done
-  2-2-create-todo-api-endpoint: ready-for-dev
+  2-2-create-todo-api-endpoint: done
   2-3-todo-list-ui-with-loading-and-empty-states: backlog
   2-4-create-todo-form-ui: backlog
   2-5-backend-cucumber-e2e-tests-for-view-and-create: backlog

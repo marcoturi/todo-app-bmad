@@ -26,6 +26,8 @@ export const todoSchema = Type.Object({
 
 export const createTodoRequestSchema = Type.Object({
   description: Type.String({
+    minLength: 1,
+    maxLength: 500,
     example: 'Buy groceries',
     description: 'Todo description',
   }),
