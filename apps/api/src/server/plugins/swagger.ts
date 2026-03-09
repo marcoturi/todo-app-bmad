@@ -8,8 +8,8 @@ async function swaggerGeneratorPlugin(fastify: FastifyInstance) {
     openapi: {
       openapi: '3.1.0',
       info: {
-        title: 'fastify-boilerplate',
-        description: 'The Swagger API documentation for the fastify-boilerplate project.',
+        title: 'todo-app-bmad',
+        description: 'REST API for the todo-app-bmad full-stack todo application.',
         version: process.env.npm_package_version ?? '0.0.0',
       },
     },

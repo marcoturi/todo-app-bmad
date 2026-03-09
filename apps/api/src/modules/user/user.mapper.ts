@@ -1,6 +1,6 @@
+import type { UserResponseDto } from '@todo-app/shared/user/schema';
 import { type UserModel, userSchema } from '#src/modules/user/database/user.repository.ts';
 import type { UserEntity } from '#src/modules/user/domain/user.types.ts';
-import type { UserResponseDto } from '#src/modules/user/dtos/user.response.dto.ts';
 import type { Mapper } from '#src/shared/ddd/mapper.interface.ts';
 import { ArgumentInvalidException } from '#src/shared/exceptions/index.ts';
 import { ajv } from '#src/shared/utils/validator.util.ts';

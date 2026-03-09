@@ -57,6 +57,24 @@
           }
         }
       }
+    },
+    {
+      "includes": ["src/**/*.{ts,tsx}"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@todo-app/shared/todos/schema": "Frontend must not import schema files. Use '@todo-app/shared/todos/types' instead.",
+                  "@todo-app/shared/user/schema": "Frontend must not import schema files. Use '@todo-app/shared/user/types' instead."
+                }
+              }
+            }
+          }
+        }
+      }
     }
   ]
 }

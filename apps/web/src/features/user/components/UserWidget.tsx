@@ -4,11 +4,11 @@ import { Text } from '@/UI/Elements/Text';
 
 function UserWidget() {
   const { isLoading, isError } = UserApi.useGetUserQuery();
-  const userFullName = useSelector(UserSelectors.getUserFullName);
+  const userEmail = useSelector(UserSelectors.getUserEmail);
 
   if (isLoading || isError) return null;
 
-  return <Text>Hello {userFullName}</Text>;
+  return <Text>Hello {userEmail}</Text>;
 }
 
 export default UserWidget;

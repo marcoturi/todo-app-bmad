@@ -20,6 +20,7 @@ lerna-debug.log*
 
 # Test & coverage output
 coverage/
+lcov.info
 .nyc_output/
 
 # Moon cache and generated output
@@ -49,9 +50,8 @@ traces/
 screenshots/
 reports/
 
-# Generated client types
-client/rest.d.ts
-client/graphql.ts
+# Generated client types (boilerplate artefact — client/ directory deleted in Story 1.6)
+# packages/shared/src/api.ts is committed intentionally — it is the generated source of truth
 
 # Cursor / AI tooling
 .specstory

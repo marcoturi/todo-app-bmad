@@ -1,19 +1,26 @@
 {
-    "name": "@todo-app/shared",
-    "version": "0.0.1",
-    "description": "Shared TypeScript types for the todo-app API contract.",
-    "type": "module",
-    "scripts": {
-        "type:check": "tsc --noEmit",
-        "check": "tsc --noEmit"
-    },
-    "exports": {
-        ".": "./src/index.ts"
-    },
-    "main": "./src/index.ts",
-    "types": "./src/index.ts",
-    "engines": {
-        "node": ">=24",
-        "pnpm": ">=10"
-    }
+  "name": "@todo-app/shared",
+  "version": "0.0.1",
+  "description": "Shared TypeScript types and schemas for the todo-app API contract.",
+  "type": "module",
+  "scripts": {
+    "type:check": "tsc --noEmit",
+    "check": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./todos/schema": "./src/todos/todos.schema.ts",
+    "./todos/types": "./src/todos/todos.types.ts",
+    "./user/schema": "./src/user/user.schema.ts",
+    "./user/types": "./src/user/user.types.ts"
+  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "typebox": "1.1.6"
+  },
+  "engines": {
+    "node": ">=24",
+    "pnpm": ">=10"
+  }
 }

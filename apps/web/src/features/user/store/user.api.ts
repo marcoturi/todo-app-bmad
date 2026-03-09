@@ -1,11 +1,11 @@
-import type { User } from '@/features/user/store/user.type';
+import type { UserResponseDto } from '@todo-app/shared/user/types';
 import baseApi from '@/shared/store/api';
 
 export const userApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['User'] })
   .injectEndpoints({
     endpoints: (build) => ({
-      getUser: build.query<User, void>({
+      getUser: build.query<UserResponseDto, void>({
         query: () => 'users',
       }),
     }),
