@@ -1,5 +1,5 @@
-import baseApi from '@/shared/store/api';
 import type { CreateTodoRequest, Todo } from '@todo-app/shared';
+import baseApi from '@/shared/store/api';
 
 export const todosApi = baseApi
   .enhanceEndpoints({ addTagTypes: ['Todo'] })

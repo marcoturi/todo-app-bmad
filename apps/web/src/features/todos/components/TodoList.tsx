@@ -1,6 +1,6 @@
-import { TodoItem } from "@/features/todos/components/TodoItem";
-import { useTodos } from "@/features/todos/hooks/useTodos";
-import { SkeletonList } from "@/UI/Elements/Skeleton";
+import { TodoItem } from '@/features/todos/components/TodoItem';
+import { useTodos } from '@/features/todos/hooks/useTodos';
+import { SkeletonList } from '@/UI/Elements/Skeleton';
 
 export function TodoList() {
   const { todos, isLoading, isError, refetch } = useTodos();

@@ -10,11 +10,11 @@ import {
 import {
   type ChromiumBrowser,
   type ConsoleMessage,
-  type FirefoxBrowser,
-  type WebKitBrowser,
   chromium,
   devices,
+  type FirefoxBrowser,
   firefox,
+  type WebKitBrowser,
   webkit,
 } from '@playwright/test';
 import { ensureDir } from 'fs-extra';

@@ -1,5 +1,5 @@
-import { cn } from "@/shared/helpers/style.utils";
-import type { Todo } from "@todo-app/shared";
+import type { Todo } from '@todo-app/shared';
+import { cn } from '@/shared/helpers/style.utils';
 
 type TodoItemProps = {
   todo: Todo;
@@ -13,16 +13,16 @@ export function TodoItem({ todo }: TodoItemProps) {
         todo.completed ? `${todo.description} (completed)` : todo.description
       }
       className={cn(
-        "flex items-center gap-3 rounded-md border bg-card px-4 py-3 shadow-sm",
-        todo.completed && "opacity-60",
+        'flex items-center gap-3 rounded-md border bg-card px-4 py-3 shadow-sm',
+        todo.completed && 'opacity-60',
       )}
     >
       {/* Read-only completion indicator — actions added in Story 3.3 */}
       <span
         aria-hidden="true"
         className={cn(
-          "flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border",
-          todo.completed && "bg-primary border-primary",
+          'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border',
+          todo.completed && 'bg-primary border-primary',
         )}
       >
         {todo.completed && (
@@ -44,7 +44,7 @@ export function TodoItem({ todo }: TodoItemProps) {
       </span>
       <span
         data-testid="todo-description"
-        className={cn(todo.completed && "line-through text-muted-foreground")}
+        className={cn(todo.completed && 'line-through text-muted-foreground')}
       >
         {todo.description}
       </span>

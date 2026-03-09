@@ -1,6 +1,5 @@
 export type {
   CreateTodoRequest,
   Todo,
-  UpdateTodoRequest
+  UpdateTodoRequest,
 } from '@todo-app/shared';
-

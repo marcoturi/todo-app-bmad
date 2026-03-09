@@ -12,7 +12,7 @@ export class TodoListPage {
   constructor(
     private readonly page: Page,
     private readonly serverUrl: string,
-  ) { }
+  ) {}
 
   async goto(): Promise<void> {
     await this.page.goto(this.serverUrl);
