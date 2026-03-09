@@ -1,2 +1,0 @@
-pnpm biome check --staged --no-errors-on-unmatched
-pnpm test

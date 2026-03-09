@@ -8,13 +8,34 @@
         "pnpm": ">=10"
     },
     "scripts": {
+        "postinstall": "husky",
         "test": "pnpm -r test",
         "test:coverage": "pnpm -r test:coverage",
         "check": "pnpm -r check",
-        "build": "pnpm -r build"
+        "build": "pnpm -r build",
+        "type:check": "pnpm -r type:check",
+        "format": "biome format --write .",
+        "lint": "biome lint --write .",
+        "check:fix": "biome check --write ."
     },
     "devDependencies": {
-        "@moonrepo/cli": "1.41.7"
+        "@biomejs/biome": "2.4.6",
+        "@commitlint/cli": "20.4.3",
+        "@commitlint/config-conventional": "20.4.3",
+        "@cucumber/cucumber": "12.7.0",
+        "@cucumber/html-formatter": "23.0.0",
+        "@cucumber/messages": "32.2.0",
+        "@cucumber/pretty-formatter": "3.2.0",
+        "@moonrepo/cli": "1.41.7",
+        "@semantic-release/changelog": "6.0.3",
+        "@semantic-release/commit-analyzer": "13.0.1",
+        "@semantic-release/git": "10.0.1",
+        "@semantic-release/github": "12.0.6",
+        "@semantic-release/npm": "13.1.5",
+        "@semantic-release/release-notes-generator": "14.1.0",
+        "husky": "9.1.7",
+        "semantic-release": "25.0.3",
+        "typescript": "5.9.3"
     },
     "pnpm": {
         "onlyBuiltDependencies": [

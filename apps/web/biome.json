@@ -1,54 +1,32 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.4.6/schema.json",
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "files": { "includes": ["**", "!!**/dist"] },
+  "root": false,
+  "extends": ["../../biome.json"],
   "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 80,
-    "useEditorconfig": true,
-    "includes": ["**", "!**/package.json", "!**/CHANGELOG.md", "!**/public"]
+    "lineWidth": 80
   },
   "linter": {
-    "enabled": true,
     "rules": {
-      "recommended": true,
-      "complexity": {
-        "noForEach": "error",
-        "useDateNow": "error",
-        "useFlatMap": "error",
-        "useIndexOf": "error"
-      },
       "correctness": {
         "useExhaustiveDependencies": "warn",
         "useHookAtTopLevel": "error"
       },
       "style": {
-        "noNegationElse": "off",
         "noNestedTernary": "off",
         "useBlockStatements": "off",
-        "noCommonJs": "error",
-        "noSubstr": "error",
-        "useArrayLiterals": "error",
-        "useCollapsedIf": "error",
-        "useConsistentArrayType": "error",
-        "useConst": "error",
-        "useExplicitLengthCheck": "error",
-        "useForOf": "error",
-        "useNodejsImportProtocol": "error",
-        "useNumberNamespace": "error",
-        "useNumericSeparators": "error",
-        "useThrowNewError": "error",
-        "useTrimStartEnd": "error",
-        "useUnifiedTypeSignatures": "error"
+        "useConsistentTypeDefinitions": "off",
+        "useFilenamingConvention": "off",
+        "noEnum": "off"
       },
       "suspicious": {
-        "noDocumentCookie": "error",
-        "noThenProperty": "error",
-        "useErrorMessage": "error",
-        "useNumberToFixedDigitsArgument": "error"
+        "noExplicitAny": "off",
+        "noConfusingVoidType": "off"
+      },
+      "security": {
+        "noSecrets": "off"
+      },
+      "nursery": {
+        "noFloatingPromises": "off"
       }
     },
     "includes": [
@@ -58,24 +36,12 @@
       "!public/mockServiceWorker.js"
     ]
   },
-  "javascript": {
-    "formatter": {
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "trailingCommas": "all",
-      "semicolons": "always",
-      "arrowParentheses": "always",
-      "quoteStyle": "single"
-    }
+  "files": {
+    "includes": ["!**/dist"]
   },
   "css": {
     "parser": {
       "tailwindDirectives": true
-    }
-  },
-  "html": {
-    "formatter": {
-      "selfCloseVoidElements": "always"
     }
   },
   "overrides": [
@@ -87,19 +53,10 @@
             "noUnusedVariables": "warn"
           },
           "style": {
-            "noCommonJs": "off",
-            "useConsistentTypeDefinitions": "off"
-          },
-          "suspicious": {
-            "noExplicitAny": "off",
-            "noConfusingVoidType": "off"
+            "noCommonJs": "off"
           }
         }
       }
     }
-  ],
-  "assist": {
-    "enabled": true,
-    "actions": { "source": { "organizeImports": "on" } }
-  }
+  ]
 }

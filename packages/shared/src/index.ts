@@ -1,1 +1,1 @@
-export type { Todo, CreateTodoRequest, UpdateTodoRequest } from './todos.ts';
+export type { CreateTodoRequest, Todo, UpdateTodoRequest } from './todos.ts';

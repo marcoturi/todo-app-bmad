@@ -31,7 +31,6 @@
     "generate:types": "bash scripts/generate-types.sh",
     "deps:validate": "depcruise src --config .dependency-cruiser.cjs --output-type err-long",
     "deps:graph": "depcruise src --include-only \"^src\" --config --output-type dot | dot -T svg > doc/dependency-graph.svg",
-    "postinstall": "husky",
     "semantic-release": "semantic-release"
   },
   "engines": {
@@ -64,29 +63,13 @@
     "typebox": "1.1.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.6",
-    "@commitlint/cli": "20.4.3",
-    "@commitlint/config-conventional": "20.4.3",
-    "@cucumber/cucumber": "12.7.0",
-    "@cucumber/html-formatter": "23.0.0",
-    "@cucumber/messages": "32.2.0",
-    "@cucumber/pretty-formatter": "3.2.0",
-    "@semantic-release/changelog": "6.0.3",
-    "@semantic-release/commit-analyzer": "13.0.1",
-    "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "12.0.6",
-    "@semantic-release/npm": "13.1.5",
-    "@semantic-release/release-notes-generator": "14.1.0",
     "@types/k6": "1.6.0",
     "@types/node": "25.3.5",
     "c8": "10.1.3",
     "dbmate": "2.31.0",
     "dependency-cruiser": "17.3.8",
-    "husky": "9.1.7",
     "openapi-typescript": "7.13.0",
-    "pino-pretty": "13.1.3",
-    "semantic-release": "25.0.3",
-    "typescript": "5.9.3"
+    "pino-pretty": "13.1.3"
   },
   "keywords": [
     "fastify",
