@@ -1,6 +1,6 @@
 # Story 1.4: CI/CD Pipeline Configuration
 
-Status: done
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -21,6 +21,34 @@ So that every push to `main` automatically validates the codebase and semantic-r
 7. **Given** a PR is merged to `main`, **When** all CI checks pass, **Then** semantic-release runs and creates a versioned release based on conventional commits.
 
 ## Tasks / Subtasks
+
+### Hotfix 1: Web Coverage Gate (CI Pipeline Failure)
+
+- [x] Diagnose web test suite failure in CI
+  - [x] Confirmed root cause: `vite-tsconfig-paths@6.1.1` does not resolve `paths` from `tsconfig.app.json` when loaded via a composite `tsconfig.json` using `references` — the `@/` alias was silently broken in the Vitest environment, crashing all 8 test suites with "Failed to resolve import" before any tests ran
+- [x] Fix `vite.config.mts` — pass explicit `projects` option to `tsconfigPaths()`
+  - [x] Changed `tsconfigPaths()` → `tsconfigPaths({ projects: [resolve(__dirname, 'tsconfig.app.json')] })`
+  - [x] Added `import { resolve } from 'node:path'`
+  - [x] Ran `pnpm --filter @todo-app/web check:fix` to correct Biome quote style on the new import
+- [x] Verify full green baseline after hotfix 1
+  - [x] `pnpm --filter @todo-app/web test` → 8/8 test files, 16/16 tests pass
+  - [x] `pnpm --filter @todo-app/web test:coverage` → 8/8 pass, coverage thresholds met
+  - [x] `pnpm --filter @todo-app/api test` → 4/4 pass
+  - [x] `pnpm -r check` → 0 Biome violations, TypeScript clean across all workspaces
+
+### Hotfix 2: API E2E Failing in CI Pipeline
+
+- [x] Diagnose API E2E failure in CI
+  - [x] Confirmed root cause: `env-schema` uses `dotenv: true` and reads `.env` locally, but there is no `.env` file in CI — `LOG_LEVEL` and `NODE_ENV` are required schema fields with no defaults, so `env-schema` throws a validation error before any test runs. These vars were absent from the `e2e` job env block.
+- [x] Fix `.github/workflows/release.yml` — add missing required env vars to `e2e` job
+  - [x] Added `LOG_LEVEL: info` to `e2e` job env block
+  - [x] Added `NODE_ENV: test` to `e2e` job env block (valid enum value in `apps/api/src/config/env.ts`)
+  - [x] Normalised YAML indentation from 4-space to 2-space (no functional change)
+- [x] Verify full green baseline after hotfix 2
+  - [x] `pnpm --filter @todo-app/api test:e2e` → 7/7 scenarios, 23/23 steps pass
+  - [x] `pnpm --filter @todo-app/web test:coverage` → 8/8 pass
+  - [x] `pnpm --filter @todo-app/api test:coverage` → 4/4 pass, 100% coverage
+  - [x] `pnpm -r check` → 0 Biome violations, TypeScript clean across all workspaces
 
 - [x] Task 1: Create `.github/workflows/release.yml` GitHub Actions workflow file (AC: #1, #2, #3, #4, #5, #6, #7)
   - [x] 1.1 Define workflow triggers: `push` to `main`, and optionally `pull_request` to `main`
@@ -425,15 +453,19 @@ Claude Sonnet 4.6 (via GitHub Copilot)
 
 - 2026-03-08: Story 1.4 implemented — CI/CD pipeline configured. Created `.github/workflows/release.yml` with `ci`, `e2e`, and `release` jobs. Wired c8 and Vitest coverage threshold flags (10% baseline, to be raised in Story 3.7). Fixed `apps/api/.releaserc` broken `client/` pkgRoot entry. All ACs satisfied.
 - 2026-03-08: Code review fixes applied — 5 HIGH/MEDIUM issues resolved: coverage thresholds raised from 0% to 10%; `pnpm -r check:fix` step added before check gate; both `.releaserc` files restructured to remove duplicate `release.prepare` block with `[skip ci]` message; `concurrency.cancel-in-progress` scoped to non-main branches; `db:migrate` step switched to `--filter` pattern; `permissions` block added to `release` job; `@semantic-release/exec` unused dep removed; `wait-on` added to `apps/web/devDependencies`.
+- 2026-03-09: Hotfix 1 — fixed web test suite and coverage gate failing in CI. Root cause: `vite-tsconfig-paths@6.1.1` could not resolve `@/` alias from composite `tsconfig.json` references. Fixed by passing `projects: [resolve(__dirname, 'tsconfig.app.json')]` to `tsconfigPaths()` in `vite.config.mts`. All 16 web tests now pass; all coverage thresholds met; `pnpm -r check` clean. (Claude Sonnet 4.6)
+- 2026-03-09: Hotfix 2 — fixed API E2E failing in CI pipeline. Root cause: `env-schema` with `dotenv: true` requires `LOG_LEVEL` and `NODE_ENV` from the environment when no `.env` file exists in CI — both fields are required with no defaults in the schema. Fixed by adding `LOG_LEVEL: info` and `NODE_ENV: test` to the `e2e` job env block in `.github/workflows/release.yml`. Also normalised YAML indentation from 4-space to 2-space (no functional change). All E2E tests pass locally; `pnpm -r check` clean. (Claude Sonnet 4.6)
 
 ### File List
 
 - `.github/workflows/release.yml` (created) — CI/CD pipeline: `ci` (check:fix + check + deps + tests + coverage) + `e2e` (postgres service + api E2E + web Playwright) + `release` (semantic-release, main-only)
 - `apps/api/package.json` (modified) — `test:coverage` script: c8 `--check-coverage` at 10% thresholds + `--reporter=lcov`; removed `@semantic-release/exec` from devDependencies
 - `apps/web/package.json` (modified) — added `wait-on@8.0.3` to devDependencies
-- `apps/web/vite.config.mts` (modified) — `coverage.thresholds` at 10%, `lcov` reporter added, `**/*.types.ts` added to coverage exclude list
+- `apps/web/vite.config.mts` (modified) — `coverage.thresholds` at 10%, `lcov` reporter added, `**/*.types.ts` added to coverage exclude list; **[hotfix 1]** `tsconfigPaths()` now passes explicit `projects: [resolve(__dirname, 'tsconfig.app.json')]` to fix `@/` alias resolution in Vitest; added `import { resolve } from 'node:path'`
+- `.github/workflows/release.yml` (modified) — **[hotfix 2]** added `LOG_LEVEL: info` and `NODE_ENV: test` to `e2e` job env block (required by `env-schema`, no defaults, no `.env` file in CI); normalised YAML indentation from 4-space to 2-space
 - `apps/api/.releaserc` (modified) — removed `release.prepare` block; `@semantic-release/git` moved to `plugins` with assets config and `[skip ci]` message; removed broken `pkgRoot: "client"` npm entry
 - `apps/web/.releaserc` (modified) — removed `release.prepare` block; `@semantic-release/git` moved to `plugins` with assets config and `[skip ci]` message
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified) — story status updated during hotfix cycle
 
 ## Senior Developer Review (AI)
 
