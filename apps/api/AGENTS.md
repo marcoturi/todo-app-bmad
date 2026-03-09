@@ -152,6 +152,7 @@ DI uses [Awilix](https://github.com/jeffijoe/awilix) with `@fastify/awilix`.
 - Repository base: `SqlRepositoryBase` (in `src/shared/db/sql-repository.base.ts`) provides generic CRUD (insert, findOneById, findAll, findAllPaginated, update, delete)
 - Repository ports extend `RepositoryPort<Entity>` (in `src/shared/db/repository.port.ts`)
 - Mapper interface: `Mapper<DomainEntity, DbRecord, Response>` with `toPersistence`, `toDomain`, `toResponse` (in `src/shared/ddd/mapper.interface.ts`)
+- transform: postgres.camel makes postgres.js map snake_case SQL columns to camelCase in JavaScript and convert camelCase object keys back to snake_case for inserts/updates. As a result, your DbModel types should always use camelCase keys like createdAt/updatedAt, and TIMESTAMPTZ fields are represented as JavaScript Date objects, not strings.
 
 SQL parameterization rules:
 - Always use tagged templates: `` db`SELECT * FROM ${db(tableName)} WHERE id = ${id}` ``
@@ -226,3 +227,6 @@ SQL parameterization rules:
 - Adding `enum` types (use const objects + derived types)
 - Putting business logic in route files
 - Directly importing from one module into another
+- **Using snake_case keys in `DbModel` types** — `transform: postgres.camel` is active; always use `camelCase` (see Database section above)
+- **Manually duplicating `id`/`description`/`completed` in `DomainEntity`** — derive from the shared wire type: `type FooEntity = Omit<Foo, 'createdAt' | 'updatedAt'> & { createdAt: Date; updatedAt: Date }`
+- **Creating passthrough DTO files** (`dtos/foo.response.dto.ts` that only re-export from shared) — import from `@todo-app/shared` directly in route/schema files

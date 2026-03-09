@@ -8,6 +8,7 @@ let sql: ReturnType<typeof postgres> | null = null;
 export function getDb(): ReturnType<typeof postgres> {
   if (!sql) {
     sql = postgres(env.db.url, {
+      transform: postgres.camel,
       debug: (conn: number, query: string, params: unknown[], paramTypes: unknown[]) => {
         if (env.log.level === LogLevel.debug) {
           // biome-ignore lint/suspicious/noConsole: needed for debugging

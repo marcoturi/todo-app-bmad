@@ -55,9 +55,9 @@ development_status:
   # ─────────────────────────────────────────────
   # Epic 2: Users Can View and Create Todos
   # ─────────────────────────────────────────────
-  epic-2: backlog
-  2-1-find-todos-api-endpoint: backlog
-  2-2-create-todo-api-endpoint: backlog
+  epic-2: in-progress
+  2-1-find-todos-api-endpoint: done
+  2-2-create-todo-api-endpoint: ready-for-dev
   2-3-todo-list-ui-with-loading-and-empty-states: backlog
   2-4-create-todo-form-ui: backlog
   2-5-backend-cucumber-e2e-tests-for-view-and-create: backlog
