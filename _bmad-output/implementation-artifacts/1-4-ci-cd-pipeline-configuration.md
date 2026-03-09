@@ -50,6 +50,25 @@ So that every push to `main` automatically validates the codebase and semantic-r
   - [x] `pnpm --filter @todo-app/api test:coverage` → 4/4 pass, 100% coverage
   - [x] `pnpm -r check` → 0 Biome violations, TypeScript clean across all workspaces
 
+### Hotfix 3: Web E2E Boilerplate Tests Failing in CI
+
+- [x] Diagnose web E2E failure in CI
+  - [x] Confirmed root cause: `apps/web/e2e/` contained boilerplate tests from `react-redux-boilerplate` for a subscription feature that does not exist in this todo app. Two scenarios in `subscription.feature` looked for `getByTestId('subscription-item')` elements that require MSW mock data; MSW is only activated when `VITE_API_MOCKING=true` AND `MODE=development` — in CI neither condition was reliably met, causing Playwright timeouts. The `app.feature` home page test also failed because the boilerplate `HomePage` (Lorem ipsum content) does not match the todo app's final homepage structure.
+  - [x] Decision: delete all boilerplate E2E feature files, step definitions, and page objects — Epic 2 stories (2.5, 2.6) will create the real todo-specific E2E tests
+- [x] Delete boilerplate E2E files
+  - [x] Deleted `apps/web/e2e/features/subscription.feature`
+  - [x] Deleted `apps/web/e2e/steps/subscription.steps.ts`
+  - [x] Deleted `apps/web/e2e/page-objects/subscription.po.ts`
+  - [x] Deleted `apps/web/e2e/features/app.feature`
+  - [x] Deleted `apps/web/e2e/steps/app.steps.ts`
+  - [x] Deleted `apps/web/e2e/page-objects/app.po.ts`
+  - [x] Removed `AppPo` and `SubscriptionPo` imports and references from `apps/web/e2e/support/common-hooks.ts`; replaced `pageObjects` type with `Record<string, never>` and initialised as `{}`
+- [x] Verify full green baseline after hotfix 3
+  - [x] `pnpm --filter @todo-app/web test:e2e` → 0 scenarios, 0 steps, clean exit (exit 0)
+  - [x] `pnpm --filter @todo-app/api test:e2e` → 7/7 scenarios, 23/23 steps pass
+  - [x] `pnpm --filter @todo-app/web test:coverage` → 8/8 pass, 16/16 tests
+  - [x] `pnpm -r check` → 0 Biome violations, TypeScript clean across all workspaces
+
 - [x] Task 1: Create `.github/workflows/release.yml` GitHub Actions workflow file (AC: #1, #2, #3, #4, #5, #6, #7)
   - [x] 1.1 Define workflow triggers: `push` to `main`, and optionally `pull_request` to `main`
   - [x] 1.2 Add `ci` job: checkout, setup pnpm 10.x + Node 24.x, cache dependencies, run `pnpm install --frozen-lockfile`
@@ -455,6 +474,7 @@ Claude Sonnet 4.6 (via GitHub Copilot)
 - 2026-03-08: Code review fixes applied — 5 HIGH/MEDIUM issues resolved: coverage thresholds raised from 0% to 10%; `pnpm -r check:fix` step added before check gate; both `.releaserc` files restructured to remove duplicate `release.prepare` block with `[skip ci]` message; `concurrency.cancel-in-progress` scoped to non-main branches; `db:migrate` step switched to `--filter` pattern; `permissions` block added to `release` job; `@semantic-release/exec` unused dep removed; `wait-on` added to `apps/web/devDependencies`.
 - 2026-03-09: Hotfix 1 — fixed web test suite and coverage gate failing in CI. Root cause: `vite-tsconfig-paths@6.1.1` could not resolve `@/` alias from composite `tsconfig.json` references. Fixed by passing `projects: [resolve(__dirname, 'tsconfig.app.json')]` to `tsconfigPaths()` in `vite.config.mts`. All 16 web tests now pass; all coverage thresholds met; `pnpm -r check` clean. (Claude Sonnet 4.6)
 - 2026-03-09: Hotfix 2 — fixed API E2E failing in CI pipeline. Root cause: `env-schema` with `dotenv: true` requires `LOG_LEVEL` and `NODE_ENV` from the environment when no `.env` file exists in CI — both fields are required with no defaults in the schema. Fixed by adding `LOG_LEVEL: info` and `NODE_ENV: test` to the `e2e` job env block in `.github/workflows/release.yml`. Also normalised YAML indentation from 4-space to 2-space (no functional change). All E2E tests pass locally; `pnpm -r check` clean. (Claude Sonnet 4.6)
+- 2026-03-09: Hotfix 3 — fixed web E2E boilerplate tests failing in CI. Root cause: `apps/web/e2e/` contained `react-redux-boilerplate` subscription and home page E2E tests irrelevant to this todo app; subscription scenarios timed out waiting for MSW-backed elements that are never rendered without mock data; home page test targeted boilerplate Lorem ipsum content incompatible with the todo app's final structure. Fixed by deleting all boilerplate feature files, step definitions, and page objects; cleaned `common-hooks.ts` of all boilerplate page object imports. Web E2E now exits cleanly with 0 scenarios. Real todo E2E tests will be created in Epic 2 Stories 2.5 and 2.6. (Claude Sonnet 4.6)
 
 ### File List
 
@@ -463,6 +483,13 @@ Claude Sonnet 4.6 (via GitHub Copilot)
 - `apps/web/package.json` (modified) — added `wait-on@8.0.3` to devDependencies
 - `apps/web/vite.config.mts` (modified) — `coverage.thresholds` at 10%, `lcov` reporter added, `**/*.types.ts` added to coverage exclude list; **[hotfix 1]** `tsconfigPaths()` now passes explicit `projects: [resolve(__dirname, 'tsconfig.app.json')]` to fix `@/` alias resolution in Vitest; added `import { resolve } from 'node:path'`
 - `.github/workflows/release.yml` (modified) — **[hotfix 2]** added `LOG_LEVEL: info` and `NODE_ENV: test` to `e2e` job env block (required by `env-schema`, no defaults, no `.env` file in CI); normalised YAML indentation from 4-space to 2-space
+- `apps/web/e2e/features/subscription.feature` (deleted) — **[hotfix 3]** boilerplate subscription E2E feature; irrelevant to todo app
+- `apps/web/e2e/steps/subscription.steps.ts` (deleted) — **[hotfix 3]** boilerplate subscription step definitions
+- `apps/web/e2e/page-objects/subscription.po.ts` (deleted) — **[hotfix 3]** boilerplate subscription page object
+- `apps/web/e2e/features/app.feature` (deleted) — **[hotfix 3]** boilerplate home page E2E feature; tests Lorem ipsum content incompatible with todo app
+- `apps/web/e2e/steps/app.steps.ts` (deleted) — **[hotfix 3]** boilerplate home page step definitions
+- `apps/web/e2e/page-objects/app.po.ts` (deleted) — **[hotfix 3]** boilerplate home page page object
+- `apps/web/e2e/support/common-hooks.ts` (modified) — **[hotfix 3]** removed `AppPo` and `SubscriptionPo` imports and all references; `pageObjects` type simplified to `Record<string, never>`
 - `apps/api/.releaserc` (modified) — removed `release.prepare` block; `@semantic-release/git` moved to `plugins` with assets config and `[skip ci]` message; removed broken `pkgRoot: "client"` npm entry
 - `apps/web/.releaserc` (modified) — removed `release.prepare` block; `@semantic-release/git` moved to `plugins` with assets config and `[skip ci]` message
 - `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified) — story status updated during hotfix cycle

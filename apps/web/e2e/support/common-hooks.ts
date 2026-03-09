@@ -18,8 +18,6 @@ import {
   webkit,
 } from '@playwright/test';
 import { ensureDir } from 'fs-extra';
-import AppPo from '../page-objects/app.po';
-import SubscriptionPo from '../page-objects/subscription.po';
 import config from './config';
 import type { ICustomWorld } from './custom-world';
 
@@ -27,10 +25,7 @@ let browser: ChromiumBrowser | FirefoxBrowser | WebKitBrowser;
 const tracesDir = 'traces';
 
 export interface PageObjects {
-  pageObjects?: {
-    appPo: ReturnType<typeof AppPo>;
-    subscriptionPo: ReturnType<typeof SubscriptionPo>;
-  };
+  pageObjects?: Record<string, never>;
 }
 
 setDefaultTimeout(process.env.PWDEBUG ? -1 : 60 * 1000);
@@ -84,10 +79,7 @@ Before(async function (this: ICustomWorld, { pickle }: ITestCaseHookParameter) {
   });
   this.feature = pickle;
 
-  this.pageObjects = {
-    appPo: AppPo(this.page),
-    subscriptionPo: SubscriptionPo(this.page),
-  };
+  this.pageObjects = {};
 });
 
 After(async function (this: ICustomWorld, { result }: ITestCaseHookParameter) {
