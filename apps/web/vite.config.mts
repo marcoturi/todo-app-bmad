@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -5,7 +6,11 @@ import { configDefaults, defineConfig } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), tailwindcss()],
+  plugins: [
+    react(),
+    tsconfigPaths({ projects: [resolve(__dirname, 'tsconfig.app.json')] }),
+    tailwindcss(),
+  ],
   build: {
     target: 'esnext',
     rollupOptions: {
