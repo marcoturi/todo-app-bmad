@@ -1,0 +1,189 @@
+name: CI / Release
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+    # ─────────────────────────────────────────────────────────────────────────────
+    # CI: lint · type-check · unit tests · coverage · dep-cruiser
+    # ─────────────────────────────────────────────────────────────────────────────
+    ci:
+        name: CI
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.12.4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            # ── Auto-fix Biome formatting (normalises quote style, import order, etc.)
+            # Runs before check so any formatter drift (e.g. editor-introduced double
+            # quotes in *.mts config files) is corrected before the gate validates it.
+            - name: Biome auto-fix formatting
+              run: pnpm -r check:fix
+
+            # ── Lint + type-check (all workspaces: api + web + shared) ──────────────
+            - name: Biome check + tsc (all workspaces)
+              run: pnpm -r check
+
+            # ── Architecture boundary validation ────────────────────────────────────
+            - name: Dependency-cruiser (api)
+              run: pnpm --filter @todo-app/api deps:validate
+
+            # ── Unit tests ──────────────────────────────────────────────────────────
+            - name: Unit tests — api
+              run: pnpm --filter @todo-app/api test
+
+            - name: Unit tests — web
+              run: pnpm --filter @todo-app/web test
+
+            # ── Coverage (thresholds at 10% now; Story 3.7 raises them to 70%) ──────
+            - name: Coverage — api
+              run: pnpm --filter @todo-app/api test:coverage
+
+            - name: Coverage — web
+              run: pnpm --filter @todo-app/web test:coverage
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # E2E: API (Cucumber/Gherkin) + Web (Cucumber/Playwright)
+    # Requires Postgres service container for API E2E
+    # ─────────────────────────────────────────────────────────────────────────────
+    e2e:
+        name: E2E Tests
+        runs-on: ubuntu-latest
+        needs: ci
+
+        services:
+            postgres:
+                image: postgres:17-alpine
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                    POSTGRES_DB: todos
+                ports:
+                    - 5432:5432
+                options: >-
+                    --health-cmd pg_isready
+                    --health-interval 10s
+                    --health-timeout 5s
+                    --health-retries 5
+
+        env:
+            # ?sslmode=disable is required for postgres:17-alpine (Story 1.2 learning)
+            DATABASE_URL: postgresql://postgres:postgres@localhost:5432/todos?sslmode=disable
+            DBMATE_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/todos?sslmode=disable
+            HOST: localhost
+            PORT: 3000
+            FRONTEND_URL: http://localhost:5173
+            # VITE_API_URL is read by the Vite dev server at startup (not baked at
+            # build time here since we use `dev`, not `build`). Required for Epic 2+
+            # frontend E2E scenarios that hit the backend.
+            VITE_API_URL: http://localhost:3000
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.12.4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            # ── API E2E ──────────────────────────────────────────────────────────────
+            - name: Run database migrations
+              run: pnpm --filter @todo-app/api db:migrate
+
+            - name: E2E tests — api (Cucumber/Gherkin)
+              run: pnpm --filter @todo-app/api test:e2e
+
+            # ── Web E2E ──────────────────────────────────────────────────────────────
+            - name: Install Playwright browsers
+              run: pnpm --filter @todo-app/web exec playwright install --with-deps chromium
+
+            - name: Start frontend dev server
+              run: pnpm --filter @todo-app/web dev &
+
+            - name: Wait for frontend dev server
+              run: pnpm --filter @todo-app/web exec wait-on http://localhost:5173 --timeout 60000
+
+            - name: E2E tests — web (Cucumber/Playwright)
+              run: pnpm --filter @todo-app/web test:e2e
+
+    # ─────────────────────────────────────────────────────────────────────────────
+    # Release: semantic-release for api + web
+    # Only runs on push to main after CI + E2E pass
+    # ─────────────────────────────────────────────────────────────────────────────
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        needs: [ci, e2e]
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+        permissions:
+            contents: write # create releases, push chore(release) commit + tags
+            issues: write # comment on issues resolved in a release
+            pull-requests: write # comment on PRs resolved in a release
+
+        steps:
+            - name: Checkout (full history for semantic-release)
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  persist-credentials: false
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10.12.4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Release — api
+              run: pnpm --filter @todo-app/api semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Release — web
+              run: pnpm --filter @todo-app/web semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

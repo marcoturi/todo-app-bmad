@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test & coverage output
+coverage/
+.nyc_output/
+
+# Moon cache and generated output
+.moon/cache/
+.moon/output/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Misc tool caches
+.cache/
+traces/
+screenshots/
+reports/
+
+# Generated client types
+client/rest.d.ts
+client/graphql.ts

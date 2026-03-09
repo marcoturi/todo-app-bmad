@@ -1,0 +1,22 @@
+{
+  "inputs": [
+    {
+      "id": "postgres-connection-string",
+      "description": "PostgreSQL connection string for the todos database",
+      "type": "promptString",
+      "password": false,
+      "default": "postgresql://postgres:postgres@localhost:5432/todos"
+    }
+  ],
+  "servers": {
+    "postgres": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${input:postgres-connection-string}"
+      ]
+    }
+  }
+}

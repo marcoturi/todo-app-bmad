@@ -1,0 +1,27 @@
+{
+    "name": "todo-app-bmad",
+    "version": "0.0.1",
+    "private": true,
+    "packageManager": "pnpm@10.12.4",
+    "engines": {
+        "node": ">=24",
+        "pnpm": ">=10"
+    },
+    "scripts": {
+        "test": "pnpm -r test",
+        "test:coverage": "pnpm -r test:coverage",
+        "check": "pnpm -r check",
+        "build": "pnpm -r build"
+    },
+    "devDependencies": {
+        "@moonrepo/cli": "1.41.7"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "@swc/core",
+            "esbuild",
+            "msw",
+            "protobufjs"
+        ]
+    }
+}

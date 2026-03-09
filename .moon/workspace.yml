@@ -1,0 +1,18 @@
+$schema: "https://moonrepo.dev/schemas/workspace.json"
+
+# Workspace members
+projects:
+    - "apps/web"
+    - "apps/api"
+    - "packages/shared"
+
+# Version control
+vcs:
+    manager: "git"
+    defaultBranch: "main"
+
+# Runner configuration
+runner:
+    archivableTargets:
+        - ":build"
+    cacheLifetime: "7 days"
