@@ -1,4 +1,9 @@
-import { subscriptionHandlers } from '@/test/handlers/subscriptions';
+import { subscriptionHandlers } from './subscriptions';
+import { todosHandlers } from './todos';
 import { usersHandlers } from './users';
 
-export const handlers = [...usersHandlers, ...subscriptionHandlers];
+export const handlers = [
+  ...usersHandlers,
+  ...subscriptionHandlers,
+  ...todosHandlers,
+];

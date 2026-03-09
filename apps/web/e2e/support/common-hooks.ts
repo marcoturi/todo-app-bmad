@@ -10,11 +10,11 @@ import {
 import {
   type ChromiumBrowser,
   type ConsoleMessage,
+  type FirefoxBrowser,
+  type WebKitBrowser,
   chromium,
   devices,
-  type FirefoxBrowser,
   firefox,
-  type WebKitBrowser,
   webkit,
 } from '@playwright/test';
 import { ensureDir } from 'fs-extra';
@@ -67,6 +67,7 @@ Before(async function (this: ICustomWorld, { pickle }: ITestCaseHookParameter) {
     acceptDownloads: true,
     recordVideo: process.env.PWVIDEO ? { dir: 'screenshots' } : undefined,
     viewport: { width: 1200, height: 800 },
+    serviceWorkers: 'block',
     ...isMobile,
   });
 

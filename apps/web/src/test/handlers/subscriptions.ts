@@ -1,5 +1,5 @@
-import { HttpResponse, http } from 'msw';
 import { subscriptionMockList } from '@/features/subscriptions/store/subscription.mocks.spec';
+import { HttpResponse, http } from 'msw';
 import { config } from '../config';
 
 export const subscriptionHandlers = [

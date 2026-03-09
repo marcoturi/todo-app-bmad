@@ -58,8 +58,8 @@ development_status:
   epic-2: in-progress
   2-1-find-todos-api-endpoint: done
   2-2-create-todo-api-endpoint: done
-  2-3-todo-list-ui-with-loading-and-empty-states: backlog
-  2-4-create-todo-form-ui: backlog
+  2-3-todo-list-ui-with-loading-and-empty-states: review
+  2-4-create-todo-form-ui: ready-for-dev
   2-5-backend-cucumber-e2e-tests-for-view-and-create: backlog
   2-6-frontend-cucumber-e2e-tests-for-view-and-create: backlog
   epic-2-retrospective: optional

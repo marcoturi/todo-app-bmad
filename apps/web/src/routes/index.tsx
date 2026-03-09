@@ -1,21 +1,21 @@
-import { lazy } from 'react';
-import { useRoutes } from 'react-router-dom';
-import UserWidget from '@/features/user/components/UserWidget';
-import { Header } from '@/UI/Layout/Header';
+import UserWidget from "@/features/user/components/UserWidget";
+import { Header } from "@/UI/Layout/Header";
+import { lazy } from "react";
+import { useRoutes } from "react-router-dom";
 
-const HomePage = lazy(() => import('@/routes/Home/HomePage'));
+const HomePage = lazy(() => import("@/routes/Home/HomePage"));
 const SubscriptionsPage = lazy(
-  () => import('@/routes/Subscriptions/SubscriptionsPage'),
+  () => import("@/routes/Subscriptions/SubscriptionsPage"),
 );
 
 export function AppRoutes() {
   const routes = [
     {
-      path: '*',
+      path: "*",
       element: <HomePage />,
     },
     {
-      path: '/subscriptions',
+      path: "/subscriptions",
       element: <SubscriptionsPage />,
     },
   ];
@@ -26,14 +26,7 @@ export function AppRoutes() {
     <>
       <Header
         rightWidget={<UserWidget />}
-        menuItems={[
-          { label: 'Home', href: '/', testId: 'home-link' },
-          {
-            label: 'Subscriptions',
-            href: '/subscriptions',
-            testId: 'subscription-link',
-          },
-        ]}
+        menuItems={[{ label: "Home", href: "/", testId: "home-link" }]}
       />
       {element}
     </>
