@@ -267,3 +267,38 @@ Then('I receive a 404 response', function (this: ICustomWorld) {
   assert.ok(typeof body.error === 'string', 'RFC 9457: must have error string');
   assert.ok(typeof body.message === 'string', 'RFC 9457: must have message string');
 });
+
+// ── Delete Todo steps ────────────────────────────────────────────────────────
+
+When('I delete the stored todo', async function (this: ICustomWorld) {
+  this.context.latestResponse = await this.server.inject({
+    method: 'DELETE',
+    url: `/api/v1/todos/${this.context.lastTodoId}`,
+  });
+});
+
+When('I send a DELETE to {string}', async function (this: ICustomWorld, path: string) {
+  this.context.latestResponse = await this.server.inject({
+    method: 'DELETE',
+    url: path,
+  });
+});
+
+Then('I receive a 200 response with an empty body', function (this: ICustomWorld) {
+  assert.equal(this.context.latestResponse!.statusCode, 200);
+  assert.equal(this.context.latestResponse!.body, '');
+});
+
+Then('the deleted todo is no longer in the list', async function (this: ICustomWorld) {
+  const listResponse = await this.server.inject({
+    method: 'GET',
+    url: '/api/v1/todos',
+  });
+  const todos = listResponse.json() as Array<{ id: string }>;
+  const stillExists = todos.some((t) => t.id === this.context.lastTodoId);
+  assert.equal(
+    stillExists,
+    false,
+    `Todo with id ${this.context.lastTodoId} should have been deleted`,
+  );
+});

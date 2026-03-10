@@ -55,7 +55,7 @@ development_status:
   # ─────────────────────────────────────────────
   # Epic 2: Users Can View and Create Todos
   # ─────────────────────────────────────────────
-  epic-2: in-progress
+  epic-2: done
   2-1-find-todos-api-endpoint: done
   2-2-create-todo-api-endpoint: done
   2-3-todo-list-ui-with-loading-and-empty-states: done
@@ -69,7 +69,7 @@ development_status:
   # ─────────────────────────────────────────────
   epic-3: in-progress
   3-1-update-todo-api-endpoint-toggle-completion: done
-  3-2-delete-todo-api-endpoint: backlog
+  3-2-delete-todo-api-endpoint: review
   3-3-complete-and-delete-todo-ui: backlog
   3-4-mobile-responsive-layout: backlog
   3-5-docker-containerisation: backlog
