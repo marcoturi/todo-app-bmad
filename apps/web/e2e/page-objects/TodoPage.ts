@@ -4,7 +4,7 @@ export class TodoPage {
   constructor(
     private readonly page: Page,
     private readonly baseUrl: string,
-  ) { }
+  ) {}
 
   async navigate(): Promise<void> {
     await this.page.goto(this.baseUrl);

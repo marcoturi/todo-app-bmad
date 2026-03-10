@@ -5,6 +5,11 @@ import type { ICustomWorld } from '../../support/custom-world';
 
 let todoPage: TodoPage;
 let initialTodoCount = 0;
+// Per-scenario baseline counts captured at navigation time.
+// Lets "the todo list contains" prove a NEW item was added vs a dirty-DB pre-existing entry.
+// WARNING: module-level state is safe for sequential runs (test:e2e) only.
+// The parallel `e2e` script (--parallel 5) can cause state bleed between workers.
+const initialDescriptionCounts = new Map<string, number>();
 
 Given(
   'the user navigates to the home page',
@@ -12,6 +17,15 @@ Given(
     todoPage = new TodoPage(this.page!, this.parameters.SERVER_URL);
     await todoPage.navigate();
     await todoPage.waitForTodoList();
+    // Snapshot description counts so later assertions can prove a new item was added.
+    const texts = await todoPage.getTodoDescriptionTexts();
+    initialDescriptionCounts.clear();
+    for (const text of texts) {
+      initialDescriptionCounts.set(
+        text,
+        (initialDescriptionCounts.get(text) ?? 0) + 1,
+      );
+    }
   },
 );
 
@@ -42,18 +56,21 @@ When(
 Then(
   'the todo list contains {string}',
   async function (this: ICustomWorld, description: string) {
-    // Use Playwright auto-retry locator assertion to wait for React re-render
-    // after RTK Query invalidates ['Todo'] tag and re-fetches the list.
-    await expect(
-      this.page!.locator('[data-testid="todo-description"]').filter({ hasText: description }),
-    ).toBeVisible();
+    const priorCount = initialDescriptionCounts.get(description) ?? 0;
+    const locator = this.page!.locator(
+      '[data-testid="todo-description"]',
+    ).filter({ hasText: description });
+    // Prove a NEW item was added — not a false positive from a dirty-DB pre-existing entry.
+    // toPass() retries until the RTK Query re-fetch completes and React re-renders the list.
+    await expect(async () => {
+      expect(await locator.count()).toBeGreaterThan(priorCount);
+    }).toPass({ timeout: 10_000 });
+    await expect(locator.first()).toBeVisible();
   },
 );
 
 Then('the todo input is empty', async function (this: ICustomWorld) {
-  await expect(
-    this.page!.getByTestId('create-todo-input'),
-  ).toHaveValue('');
+  await expect(this.page!.getByTestId('create-todo-input')).toHaveValue('');
 });
 
 Then('a validation error is displayed', async function (this: ICustomWorld) {
