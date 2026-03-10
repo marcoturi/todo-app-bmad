@@ -12,7 +12,8 @@ export default function todoRepository({
     ...repositoryBase({ tableName, mapper: todoMapper }),
 
     async findAll(): Promise<TodoEntity[]> {
-      const records: TodoEntity[] = await db`SELECT * FROM ${db(tableName)} ORDER BY created_at ASC`;
+      const records: TodoEntity[] =
+        await db`SELECT * FROM ${db(tableName)} ORDER BY created_at ASC`;
       return records.map((r) => todoMapper.toDomain(r));
     },
 
