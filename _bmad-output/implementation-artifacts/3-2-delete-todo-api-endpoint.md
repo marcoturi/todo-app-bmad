@@ -1,6 +1,6 @@
 # Story 3.2: Delete Todo API Endpoint
 
-Status: review
+Status: done
 
 ## Story
 
@@ -399,7 +399,8 @@ Claude Sonnet 4.6
 - Unit tests: 3 new tests in `delete-todo.handler.spec.ts` using `node:test` — all pass (17/17 total)
 - E2E tests: 3 new Cucumber scenarios in `delete-todo.feature` — all pass
 - No new dependencies or shared types required; all referenced items already existed
-- Pre-existing Biome violations in `update-todo.*` files (import order) are out of scope; no new violations introduced
+- Pre-existing Biome violations in `update-todo.*` files (import order) are out of scope
+- Code review (2026-03-10): Fixed import order violations in `delete-todo.handler.spec.ts` and `delete-todo.route.ts`; Biome now passes with 0 violations in all new files
 
 ### File List
 
@@ -412,3 +413,4 @@ Claude Sonnet 4.6
 ### Change Log
 
 - 2026-03-10: Implemented `DELETE /api/v1/todos/:id` endpoint (Story 3.2) — handler, route, unit tests, and Cucumber E2E scenarios added
+- 2026-03-10: Code review — fixed Biome import-order violations in `delete-todo.handler.spec.ts` and `delete-todo.route.ts`; all 17 unit tests pass, biome check clean

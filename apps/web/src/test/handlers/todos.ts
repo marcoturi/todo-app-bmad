@@ -34,4 +34,29 @@ export const todosHandlers = [
     };
     return HttpResponse.json(newTodo, { status: 201 });
   }),
+  http.patch(
+    `${config.API_URL}/api/v1/todos/:id`,
+    async ({ params, request }) => {
+      const id = params.id as string;
+      const body = (await request.json()) as { completed: boolean };
+      const todo = todoMockList.find((t) => t.id === id);
+      const updatedTodo: Todo = todo
+        ? {
+            ...todo,
+            completed: body.completed,
+            updatedAt: new Date().toISOString(),
+          }
+        : {
+            id,
+            description: 'Unknown todo',
+            completed: body.completed,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          };
+      return HttpResponse.json(updatedTodo);
+    },
+  ),
+  http.delete(`${config.API_URL}/api/v1/todos/:id`, () => {
+    return HttpResponse.json(null, { status: 200 });
+  }),
 ];

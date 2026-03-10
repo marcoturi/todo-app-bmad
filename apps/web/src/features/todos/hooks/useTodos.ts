@@ -11,6 +11,8 @@ export function useTodos() {
   } = todosApi.useGetTodosQuery();
 
   const [createTodo, createTodoState] = todosApi.useCreateTodoMutation();
+  const [updateTodo, updateTodoState] = todosApi.useUpdateTodoMutation();
+  const [deleteTodo, deleteTodoState] = todosApi.useDeleteTodoMutation();
 
   return {
     todos,
@@ -24,5 +26,13 @@ export function useTodos() {
     isCreateError: createTodoState.isError,
     createError: createTodoState.error,
     createTodoReset: createTodoState.reset,
+    updateTodo,
+    isUpdating: updateTodoState.isLoading,
+    isUpdateError: updateTodoState.isError,
+    updateTodoReset: updateTodoState.reset,
+    deleteTodo,
+    isDeleting: deleteTodoState.isLoading,
+    isDeleteError: deleteTodoState.isError,
+    deleteTodoReset: deleteTodoState.reset,
   };
 }

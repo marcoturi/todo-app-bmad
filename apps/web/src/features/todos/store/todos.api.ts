@@ -1,4 +1,8 @@
-import type { CreateTodoRequest, Todo } from '@todo-app/shared';
+import type {
+  CreateTodoRequest,
+  Todo,
+  UpdateTodoRequest,
+} from '@todo-app/shared';
 import baseApi from '@/shared/store/api';
 
 export const todosApi = baseApi
@@ -17,8 +21,28 @@ export const todosApi = baseApi
         }),
         invalidatesTags: ['Todo'],
       }),
+      updateTodo: build.mutation<Todo, { id: string } & UpdateTodoRequest>({
+        query: ({ id, ...body }) => ({
+          url: `api/v1/todos/${id}`,
+          method: 'PATCH',
+          body,
+        }),
+        invalidatesTags: ['Todo'],
+      }),
+      deleteTodo: build.mutation<void, { id: string }>({
+        query: ({ id }) => ({
+          url: `api/v1/todos/${id}`,
+          method: 'DELETE',
+        }),
+        invalidatesTags: ['Todo'],
+      }),
     }),
     overrideExisting: false,
   });
 
-export const { useGetTodosQuery, useCreateTodoMutation } = todosApi;
+export const {
+  useGetTodosQuery,
+  useCreateTodoMutation,
+  useUpdateTodoMutation,
+  useDeleteTodoMutation,
+} = todosApi;

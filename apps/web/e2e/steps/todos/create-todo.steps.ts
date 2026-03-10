@@ -39,8 +39,23 @@ When(
 When(
   'the user submits the create todo form',
   async function (this: ICustomWorld) {
-    await todoPage.submitForm();
-    await this.page!.waitForLoadState('networkidle');
+    // Snapshot total item count before submit so we can wait for DOM update
+    const totalBefore = await this.page!.locator(
+      '[data-testid="todo-description"]',
+    ).count();
+
+    await Promise.all([
+      this.page!.waitForResponse(
+        (resp) =>
+          resp.url().includes('/api/v1/todos') &&
+          resp.request().method() === 'POST',
+      ),
+      todoPage.submitForm(),
+    ]);
+    // Wait for React to render the new item (handles concurrent-mode deferred commits)
+    await expect(
+      this.page!.locator('[data-testid="todo-description"]'),
+    ).toHaveCount(totalBefore + 1, { timeout: 10_000 });
   },
 );
 
