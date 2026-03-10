@@ -13,6 +13,7 @@
     "create:env": "node -e \"require('fs').copyFileSync('.env.example', '.env', require('fs').constants.COPYFILE_EXCL)\"",
     "start": "node --env-file=.env --import ./src/instrumentation.ts --watch src/index.ts | pino-pretty -clSt",
     "start:prod": "node --env-file=.env --import ./src/instrumentation.ts ./src/index.ts",
+    "start:ci": "node --import ./src/instrumentation.ts ./src/index.ts",
     "test": "pnpm test:unit",
     "test:coverage": "c8 --check-coverage --lines 10 --functions 10 --branches 10 --statements 10 --reporter=text --reporter=lcov node --test src/**/*.spec.ts",
     "test:unit": "node --test src/**/*.spec.ts",

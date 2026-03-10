@@ -123,6 +123,12 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm --filter @todo-app/web exec playwright install --with-deps chromium
 
+      - name: Start API server
+        run: pnpm --filter @todo-app/api start:ci &
+
+      - name: Wait for API server
+        run: pnpm --filter @todo-app/web exec wait-on http://localhost:3000/api/v1/todos --timeout 30000
+
       - name: Start frontend dev server
         run: pnpm --filter @todo-app/web dev &
 

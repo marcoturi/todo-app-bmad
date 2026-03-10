@@ -42,14 +42,18 @@ When(
 Then(
   'the todo list contains {string}',
   async function (this: ICustomWorld, description: string) {
-    const descriptions = await todoPage.getTodoDescriptionTexts();
-    expect(descriptions).toContain(description);
+    // Use Playwright auto-retry locator assertion to wait for React re-render
+    // after RTK Query invalidates ['Todo'] tag and re-fetches the list.
+    await expect(
+      this.page!.locator('[data-testid="todo-description"]').filter({ hasText: description }),
+    ).toBeVisible();
   },
 );
 
 Then('the todo input is empty', async function (this: ICustomWorld) {
-  const value = await todoPage.getInputValue();
-  expect(value).toBe('');
+  await expect(
+    this.page!.getByTestId('create-todo-input'),
+  ).toHaveValue('');
 });
 
 Then('a validation error is displayed', async function (this: ICustomWorld) {
