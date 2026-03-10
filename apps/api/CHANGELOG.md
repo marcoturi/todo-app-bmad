@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.2.0...v1.3.0) (2026-03-10)
+
+
+### Features
+
+* create task ([91b8a3a](https://github.com/marcoturi/todo-app-bmad/commit/91b8a3a12273bda30f0a213a7b28fd036f627927))
+
 # [1.2.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.1.0...v1.2.0) (2026-03-09)
 
 
