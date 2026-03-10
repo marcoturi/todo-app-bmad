@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.4.0...v1.5.0) (2026-03-10)
+
+
+### Features
+
+* delte todos ([0c6abfa](https://github.com/marcoturi/todo-app-bmad/commit/0c6abfa800ae201f445cc989c182c857117e93e5))
+
 # [1.4.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.3.0...v1.4.0) (2026-03-10)
 
 
