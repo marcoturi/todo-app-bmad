@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.3.0...v1.4.0) (2026-03-10)
+
+
+### Features
+
+* add update-todo ([866125a](https://github.com/marcoturi/todo-app-bmad/commit/866125a58307bccbaf1ae28ba26c9d8dd79a2a1f))
+* add update-todo ([6a19ec3](https://github.com/marcoturi/todo-app-bmad/commit/6a19ec38f44c125ae077e904f9452aec15b38eaf))
+
 # [1.3.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.2.0...v1.3.0) (2026-03-10)
 
 
