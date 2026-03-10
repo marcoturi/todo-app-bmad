@@ -6,6 +6,7 @@ import type postgres from 'postgres';
 export interface TestContext {
   createUserDto?: Record<string, string>;
   latestResponse?: LightMyRequestResponse;
+  lastTodoId?: string;
   [key: string]: unknown;
 }
 

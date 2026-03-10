@@ -62,19 +62,18 @@ development_status:
   2-4-create-todo-form-ui: done
   2-5-backend-cucumber-e2e-tests-for-view-and-create: done
   2-6-frontend-cucumber-e2e-tests-for-view-and-create: done
-  epic-2-retrospective: optional
+  epic-2-retrospective: done
 
   # ─────────────────────────────────────────────
   # Epic 3: Users Can Complete and Delete Todos
   # ─────────────────────────────────────────────
-  epic-3: backlog
-  3-1-update-todo-api-endpoint-toggle-completion: backlog
+  epic-3: in-progress
+  3-1-update-todo-api-endpoint-toggle-completion: done
   3-2-delete-todo-api-endpoint: backlog
   3-3-complete-and-delete-todo-ui: backlog
   3-4-mobile-responsive-layout: backlog
-  3-5-backend-and-frontend-e2e-tests-for-complete-and-delete: backlog
-  3-6-docker-containerisation: backlog
-  3-7-test-coverage-analysis-and-enforcement: backlog
-  3-8-accessibility-audit: backlog
-  3-9-security-review-and-performance-baseline: backlog
+  3-5-docker-containerisation: backlog
+  3-6-test-coverage-analysis-and-enforcement: backlog
+  3-7-accessibility-audit: backlog
+  3-8-security-review-and-performance-baseline: backlog
   epic-3-retrospective: optional

@@ -639,6 +639,12 @@ So that I can manage the full lifecycle of my tasks.
 **When** it runs under Vitest + Testing Library with MSW,
 **Then** tests cover: toggle complete, toggle incomplete, delete, update error, delete error — all passing.
 
+**Given** `e2e/features/todos/todos.feature` is updated with complete and delete Playwright scenarios,
+**When** `pnpm --filter @todo-app/web test:e2e` runs against the live stack,
+**Then** scenarios pass covering: complete a todo (toggle to done), uncomplete a todo (toggle back to active), and delete a todo.
+**And** `e2e/steps/todos/todos.steps.ts` is extended with step definitions for toggle and delete interactions via the `TodoPage` page object.
+**And** all existing scenarios from Story 2.6 continue to pass — no regressions.
+
 ---
 
 ### Story 3.4: Mobile-Responsive Layout
@@ -666,41 +672,7 @@ So that I can manage my tasks from any device.
 
 ---
 
-### Story 3.5: Backend and Frontend E2E Tests for Complete and Delete
-
-As a developer,
-I want Cucumber E2E tests covering the complete and delete operations on both backend and frontend,
-So that the full task lifecycle is validated end-to-end.
-
-**Acceptance Criteria:**
-
-**Given** the Cucumber E2E suite for `apps/api`,
-**When** `tests/todos/update-todo.feature` and `tests/todos/delete-todo.feature` are created,
-**Then** `update-todo.feature` contains scenarios: mark todo as complete, mark todo as incomplete, todo not found returns 404, invalid UUID returns 400.
-**And** `delete-todo.feature` contains scenarios: successful deletion removes todo from list, todo not found returns 404, invalid UUID returns 400.
-
-**Given** `tests/todos/todos.steps.ts` contains step definitions for all four feature files,
-**When** the full backend Cucumber E2E suite runs,
-**Then** all scenarios across all four feature files (`find-todos`, `create-todo`, `update-todo`, `delete-todo`) pass with zero failures.
-**And** `tests/support/hooks.ts` ensures the database is cleaned between every scenario.
-
-**Given** the Cucumber + Playwright E2E suite for `apps/web`,
-**When** `e2e/todos/todos.feature` is updated with complete and delete scenarios,
-**Then** it contains scenarios covering all four core user actions: create a todo, view all todos, complete a todo, delete a todo.
-**And** it covers the empty state shown on first load.
-**And** it covers persistence: a todo created in one step is still visible after a page reload.
-
-**Given** `e2e/todos/todos.steps.ts` contains Playwright step definitions for all scenarios,
-**When** the frontend Cucumber E2E suite runs against the live stack (frontend + backend + DB),
-**Then** all scenarios pass with zero failures.
-
-**Given** the CI pipeline runs on a push to `main`,
-**When** both backend and frontend E2E test steps execute,
-**Then** all Cucumber scenarios pass and the pipeline does not fail on flaky tests.
-
----
-
-### Story 3.6: Docker Containerisation
+### Story 3.5: Docker Containerisation
 
 As a developer,
 I want the full application stack containerised with Docker Compose,
@@ -748,7 +720,7 @@ So that the entire app (frontend, backend, and database) can be started with a s
 
 ---
 
-### Story 3.7: Test Coverage Analysis and Enforcement
+### Story 3.6: Test Coverage Analysis and Enforcement
 
 As a developer,
 I want test coverage measured and reported across both apps with a minimum 70% threshold enforced,
@@ -781,7 +753,7 @@ So that gaps in test coverage are visible and the codebase maintains a meaningfu
 
 ---
 
-### Story 3.8: Accessibility Audit
+### Story 3.7: Accessibility Audit
 
 As a developer,
 I want an automated accessibility audit run against the frontend using axe-core via Playwright,
@@ -832,7 +804,7 @@ So that the application meets WCAG AA compliance and is usable by people relying
 
 ---
 
-### Story 3.9: Security Review and Performance Baseline
+### Story 3.8: Security Review and Performance Baseline
 
 As a developer,
 I want a security review of the codebase and a documented performance baseline,

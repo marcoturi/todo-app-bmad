@@ -181,3 +181,89 @@ Then(
     );
   },
 );
+
+// ── Update Todo steps ────────────────────────────────────────────────────────
+
+Given(
+  'a todo is inserted with description {string} and its id is stored',
+  async function (this: ICustomWorld, description: string) {
+    const [row] = await this.db`
+      INSERT INTO todos (id, description, completed, created_at, updated_at)
+      VALUES (gen_random_uuid(), ${description}, false, now(), now())
+      RETURNING id
+    `;
+    this.context.lastTodoId = row.id;
+  },
+);
+
+When(
+  'I toggle the stored todo completion to {word}',
+  async function (this: ICustomWorld, completed: string) {
+    this.context.latestResponse = await this.server.inject({
+      method: 'PATCH',
+      url: `/api/v1/todos/${this.context.lastTodoId}`,
+      headers: { 'content-type': 'application/json' },
+      payload: { completed: completed === 'true' },
+    });
+  },
+);
+
+When(
+  'I send a PATCH to {string} with completed {word}',
+  async function (this: ICustomWorld, path: string, completed: string) {
+    this.context.latestResponse = await this.server.inject({
+      method: 'PATCH',
+      url: path,
+      headers: { 'content-type': 'application/json' },
+      payload: { completed: completed === 'true' },
+    });
+  },
+);
+
+Then('I receive a 200 response with a todo object', function (this: ICustomWorld) {
+  assert.equal(this.context.latestResponse!.statusCode, 200);
+  assert.ok(
+    this.context.latestResponse!.headers['content-type']?.includes('application/json'),
+    'Content-Type must be application/json',
+  );
+  const body = this.context.latestResponse!.json();
+  assert.ok(UUID_REGEX.test(body.id), `id must be a valid UUID, got: ${body.id}`);
+  assert.ok(typeof body.completed === 'boolean', 'Response must have a boolean completed');
+  assert.ok(typeof body.description === 'string', 'Response must have a string description');
+  assert.ok(
+    ISO_8601_REGEX.test(body.createdAt),
+    `createdAt must be ISO 8601, got: ${body.createdAt}`,
+  );
+  assert.ok(
+    ISO_8601_REGEX.test(body.updatedAt),
+    `updatedAt must be ISO 8601, got: ${body.updatedAt}`,
+  );
+});
+
+Then('the response todo has completed {word}', function (this: ICustomWorld, completed: string) {
+  const body = this.context.latestResponse!.json();
+  assert.equal(
+    body.completed,
+    completed === 'true',
+    `Expected completed=${completed === 'true'}, got ${body.completed}`,
+  );
+});
+
+Then(
+  'the response todo has updatedAt greater than or equal to createdAt',
+  function (this: ICustomWorld) {
+    const body = this.context.latestResponse!.json();
+    assert.ok(
+      new Date(body.updatedAt) >= new Date(body.createdAt),
+      `updatedAt (${body.updatedAt}) must be >= createdAt (${body.createdAt})`,
+    );
+  },
+);
+
+Then('I receive a 404 response', function (this: ICustomWorld) {
+  assert.equal(this.context.latestResponse!.statusCode, 404);
+  const body = this.context.latestResponse!.json();
+  assert.ok(typeof body.statusCode === 'number', 'RFC 9457: must have statusCode');
+  assert.ok(typeof body.error === 'string', 'RFC 9457: must have error string');
+  assert.ok(typeof body.message === 'string', 'RFC 9457: must have message string');
+});

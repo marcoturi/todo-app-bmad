@@ -166,6 +166,8 @@ Route → Handler → Domain → Repository
 
 - Use TypeBox (`Type.Object`, `Type.String`, etc.) for all request/response schemas.
 - **Before defining a new schema or type, check `@todo-app/shared` first** — reuse directly if the type exists there, or derive from it (e.g. `Type.Pick`, `Type.Omit`, `Type.Intersect`) rather than duplicating.
+- **API contract types and response shapes consumed by BOTH `apps/api` and `apps/web` MUST be defined in `packages/shared/src/` FIRST.** Add the TypeBox schema to `packages/shared` before creating the route or handler that references it. The shared package is the single source of truth — apps always derive from it, never define it in parallel.
+- Local `<command>.schema.ts` files in `apps/api` are ONLY for Fastify route-level validation constraints (e.g. `minLength`, `maxLength`, `example`) that are Fastify-specific. They must import the base type from `@todo-app/shared` and layer validation on top — never define the response shape or the shared request contract locally.
 - Schema files are named `<command|query>.schema.ts` and co-located with their handler.
 
 ---
@@ -303,6 +305,12 @@ src/
 - Run `pnpm deps:validate` to verify layer boundaries with dependency-cruiser.
 - This runs in CI — do not merge PRs that fail dependency boundary checks.
 
+**Story structure**
+
+- Every story must own its complete test suite — unit tests AND E2E tests are acceptance criteria, not follow-on work.
+- Never create standalone QA-only or testing-only stories. If a feature story is too large, split it by architectural layer (e.g. one story for BE + its unit tests + its Cucumber E2E; one story for FE + its unit tests + its Playwright E2E), but each story part must carry its own tests.
+- A feature is not `done` until all tests (unit + E2E) defined in its ACs pass. Merging implementation without accompanying tests is a definition-of-done violation.
+
 ---
 
 ### Critical Don't-Miss Rules
@@ -336,6 +344,8 @@ src/
 - ❌ Never define a database service per app — Docker Compose is at the monorepo root only.
 - ❌ Never duplicate REST request/response types between `apps/web` and `apps/api` — put them in `packages/shared`.
 - ❌ Never inline a schema or type in `apps/api` or `apps/web` when an equivalent already exists in `packages/shared` — check `@todo-app/shared` first.
+- ❌ Never define a new API response schema or shared request/response contract type in `apps/api` or `apps/web` — add it to `packages/shared/src/` first, then import it. Local schema files in `apps/api` are only for Fastify validation constraints (minLength, maxLength, pattern), never for defining the contract shape.
+- ❌ Never create a standalone testing/QA-only story — unit tests and E2E tests must be part of the feature story's acceptance criteria and definition of done.
 - ❌ Never run `pnpm install` inside a workspace directly — run from the monorepo root.
 
 ---
