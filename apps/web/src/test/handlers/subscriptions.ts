@@ -1,6 +1,32 @@
 import { HttpResponse, http } from 'msw';
-import { subscriptionMockList } from '@/features/subscriptions/store/subscription.mocks.spec';
 import { config } from '../config';
+
+const subscriptionMockList = [
+  {
+    id: 'monthly',
+    type: 'subscription',
+    name: 'Monthly Subscription',
+    price: 9.99,
+    currency: 'EUR',
+    description: 'Lorem ipsum dolor sit amet.',
+  },
+  {
+    id: 'yearly',
+    type: 'subscription',
+    name: 'Yearly Subscription',
+    price: 99.99,
+    currency: 'EUR',
+    description: 'Lorem ipsum dolor sit amet.',
+  },
+  {
+    id: 'lifetime',
+    type: 'oneTimePurchase',
+    name: 'Lifetime Purchase',
+    price: 299.99,
+    currency: 'EUR',
+    description: 'Lorem ipsum dolor sit amet.',
+  },
+];
 
 export const subscriptionHandlers = [
   http.get(`${config.API_URL}/subscriptions`, () => {

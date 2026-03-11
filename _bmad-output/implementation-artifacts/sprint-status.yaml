@@ -72,7 +72,7 @@ development_status:
   3-2-delete-todo-api-endpoint: done
   3-3-complete-and-delete-todo-ui: done
   3-4-mobile-responsive-layout: done
-  3-5-docker-containerisation: ready-for-dev
+  3-5-docker-containerisation: done
   3-6-test-coverage-analysis-and-enforcement: backlog
   3-7-accessibility-audit: backlog
   3-8-security-review-and-performance-baseline: backlog

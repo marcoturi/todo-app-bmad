@@ -2,19 +2,80 @@ services:
   postgres:
     image: postgres:17-alpine
     environment:
-      POSTGRES_DB: todos
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-todos}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     ports:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d todos']
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-todos}']
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 5s
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      NODE_ENV: production
+      HOST: '0.0.0.0'
+      PORT: '3000'
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-todos}?sslmode=disable
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:80}
+      OTEL_SDK_DISABLED: 'true'
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'node', 'scripts/healthcheck.mjs']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3000}
+    ports:
+      - '80:8080'
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://localhost:8080/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # test profile: creates isolated test database then confirms full stack is E2E-ready.
+  # Usage: POSTGRES_DB=todos_test docker compose --profile test up --wait
+  e2e-setup:
+    image: postgres:17-alpine
+    profiles:
+      - test
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    entrypoint: ['sh', '-c']
+    command:
+      - >-
+        createdb -h postgres -U ${POSTGRES_USER:-postgres} ${POSTGRES_DB:-todos_test} 2>/dev/null || true
+        && echo "E2E stack ready — test db: ${POSTGRES_DB:-todos_test}"
 
 volumes:
   postgres_data:

@@ -6,7 +6,7 @@ import { Text } from '@/UI/Elements/Text';
 function HomePage() {
   return (
     <Container data-testid="home-page">
-      <Text size="7" as="h1" className="!mb-6 block font-semibold">
+      <Text size="7" as="p" className="!mb-6 block font-semibold">
         My Tasks
       </Text>
       <CreateTodoForm />

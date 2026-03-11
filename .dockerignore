@@ -1,0 +1,45 @@
+# node_modules at all workspace levels — pnpm install runs inside the container
+**/node_modules
+
+# Version control
+.git
+.gitignore
+
+# Environment files (injected at runtime by docker compose)
+.env
+.env.*
+!.env.example
+
+# Build outputs
+**/dist
+**/coverage
+**/reports
+**/screenshots
+
+# Test files — not needed in production images
+**/tests/
+**/*.spec.ts
+**/*.test.ts
+**/cucumber.mjs
+
+# IDE / Editor
+.vscode/
+.idea/
+.cursor/
+.DS_Store
+
+# Documentation
+**/doc/
+LICENSE
+*.md
+!apps/api/package.json
+!apps/web/package.json
+!packages/shared/package.json
+
+# BMAD development artifacts — not needed in images
+_bmad/
+_bmad-output/
+
+# CI
+.github/
+.husky/
