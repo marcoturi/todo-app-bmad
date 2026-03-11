@@ -6,6 +6,12 @@ export function Container({
   ...props
 }: React.ComponentProps<typeof RadixContainer>) {
   return (
-    <RadixContainer className={cn('w-11/12 pt-10', className)} {...props} />
+    <RadixContainer
+      className={cn(
+        'w-full !max-w-2xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10',
+        className,
+      )}
+      {...props}
+    />
   );
 }

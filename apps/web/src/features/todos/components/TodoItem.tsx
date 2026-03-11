@@ -43,28 +43,35 @@ export function TodoItem({ todo }: TodoItemProps) {
             updateTodo({ id: todo.id, completed: !todo.completed })
           }
           className={cn(
-            'flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border',
+            'flex shrink-0 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 items-center justify-center',
             'focus-visible:ring-ring focus-visible:outline-none focus-visible:ring-2',
             'disabled:opacity-50 disabled:cursor-not-allowed',
-            todo.completed && 'bg-primary border-primary',
           )}
         >
-          {todo.completed && (
-            <svg
-              className="h-3 w-3 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={3}
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          )}
+          <span
+            className={cn(
+              'flex h-4 w-4 items-center justify-center rounded-sm border',
+              todo.completed && 'bg-primary border-primary',
+            )}
+            aria-hidden="true"
+          >
+            {todo.completed && (
+              <svg
+                className="h-3 w-3 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={3}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            )}
+          </span>
         </button>
         <span
           data-testid="todo-description"
@@ -78,7 +85,7 @@ export function TodoItem({ todo }: TodoItemProps) {
           data-testid="todo-delete-button"
           disabled={isUpdating || isDeleting}
           onClick={() => deleteTodo({ id: todo.id })}
-          className="ml-auto text-muted-foreground hover:text-destructive disabled:opacity-50 disabled:cursor-not-allowed"
+          className="ml-auto min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground hover:text-destructive disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <svg
             className="h-4 w-4"
@@ -101,7 +108,7 @@ export function TodoItem({ todo }: TodoItemProps) {
         <div
           data-testid="todo-update-error"
           role="alert"
-          className="mx-4 mb-3 flex items-center justify-between rounded-md border border-destructive/50 p-2 text-sm text-destructive"
+          className="mx-4 mb-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-destructive/50 p-2 text-sm text-destructive"
         >
           <span>Failed to update task. Please try again.</span>
           <button
@@ -119,7 +126,7 @@ export function TodoItem({ todo }: TodoItemProps) {
         <div
           data-testid="todo-delete-error"
           role="alert"
-          className="mx-4 mb-3 flex items-center justify-between rounded-md border border-destructive/50 p-2 text-sm text-destructive"
+          className="mx-4 mb-3 flex flex-wrap items-center justify-between gap-2 rounded-md border border-destructive/50 p-2 text-sm text-destructive"
         >
           <span>Failed to delete task. Please try again.</span>
           <button

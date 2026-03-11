@@ -28,7 +28,7 @@ export function CreateTodoForm() {
       <form
         data-testid="create-todo-form"
         onSubmit={handleSubmit}
-        className="flex gap-2"
+        className="flex flex-col sm:flex-row gap-2"
       >
         <input
           data-testid="create-todo-input"
@@ -45,7 +45,7 @@ export function CreateTodoForm() {
             validationError ? 'create-todo-validation-error' : undefined
           }
           className={cn(
-            'flex-1 rounded-md border px-3 py-2 text-sm',
+            'flex-1 rounded-md border px-3 py-2 text-sm min-h-[44px]',
             'focus:ring-ring focus:outline-none focus:ring-2',
             validationError && 'border-destructive',
           )}
@@ -54,7 +54,7 @@ export function CreateTodoForm() {
           data-testid="create-todo-submit"
           type="submit"
           disabled={isCreating}
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+          className="w-full sm:w-auto min-h-[44px] rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
         >
           {isCreating ? 'Adding…' : 'Add'}
         </button>
@@ -75,14 +75,14 @@ export function CreateTodoForm() {
         <div
           data-testid="create-todo-error"
           role="alert"
-          className="mt-2 flex items-center justify-between rounded-md border border-destructive/50 p-3 text-sm text-destructive"
+          className="mt-2 flex flex-wrap items-center justify-between gap-2 rounded-md border border-destructive/50 p-3 text-sm text-destructive"
         >
           <span>Failed to add task. Please try again.</span>
           <button
             type="button"
             aria-label="Dismiss error"
             onClick={createTodoReset}
-            className="ml-4 underline hover:no-underline"
+            className="min-h-[44px] flex items-center ml-4 underline hover:no-underline"
           >
             Dismiss
           </button>

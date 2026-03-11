@@ -275,7 +275,7 @@ apps/web/e2e/
 ├── features/todos/
 │   └── todos.feature          ← APPEND new scenarios
 ├── steps/todos/
-│   └── todos.steps.ts         ← APPEND new step definitions  
+│   └── todos.steps.ts         ← APPEND new step definitions
 └── page-objects/
     └── TodoPage.ts            ← ADD toggleTodo, deleteTodo, isTodoCompleted
 ```
