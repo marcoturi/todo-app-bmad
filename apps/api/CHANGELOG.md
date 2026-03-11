@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.5.0...v1.6.0) (2026-03-10)
+
+
+### Features
+
+* complete and delete todo ([d8d3873](https://github.com/marcoturi/todo-app-bmad/commit/d8d3873b5d746bd53aa3c566cf1895f9ebbb2b9f))
+
 # [1.5.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.4.0...v1.5.0) (2026-03-10)
 
 
