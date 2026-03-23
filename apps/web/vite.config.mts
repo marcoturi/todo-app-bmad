@@ -11,6 +11,11 @@ export default defineConfig({
     tsconfigPaths({ projects: [resolve(__dirname, 'tsconfig.app.json')] }),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+    },
+  },
   build: {
     target: 'esnext',
     rollupOptions: {
@@ -75,10 +80,10 @@ export default defineConfig({
       // Thresholds set at 10% — achievable with current boilerplate specs.
       // Story 3.7 (Test Coverage Analysis and Enforcement) raises these to 70%.
       thresholds: {
-        lines: 10,
-        functions: 10,
-        branches: 10,
-        statements: 10,
+        lines: 70,
+        functions: 70,
+        branches: 70,
+        statements: 70,
       },
       exclude: [
         '_snapshots_',
