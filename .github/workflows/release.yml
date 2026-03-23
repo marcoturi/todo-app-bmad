@@ -46,12 +46,22 @@ jobs:
       - name: Dependency-cruiser (api)
         run: pnpm --filter @todo-app/api deps:validate
 
-      # ── Coverage (thresholds at 10% now; Story 3.7 raises them to 70%) ──────
+      # ── Coverage (70% threshold enforced — Story 3.6) ─────────────────────
       - name: Coverage — api
         run: pnpm --filter @todo-app/api test:coverage
 
       - name: Coverage — web
         run: pnpm --filter @todo-app/web test:coverage
+
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            apps/api/coverage/
+            apps/web/coverage/
+          retention-days: 14
 
   # ─────────────────────────────────────────────────────────────────────────────
   # E2E: API (Cucumber/Gherkin) + Web (Cucumber/Playwright)

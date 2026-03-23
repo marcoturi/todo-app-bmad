@@ -77,8 +77,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
-      // Thresholds set at 10% — achievable with current boilerplate specs.
-      // Story 3.7 (Test Coverage Analysis and Enforcement) raises these to 70%.
+      // Minimum 70% coverage enforced (Story 3.6).
       thresholds: {
         lines: 70,
         functions: 70,
