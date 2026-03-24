@@ -33,6 +33,7 @@
 # - SM typically creates next story after previous one is 'done' to incorporate learnings
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
+last_updated: 2026-03-23
 generated: 2026-03-23 (refreshed)
 project: todo-app-bmad
 project_key: NOKEY
@@ -73,7 +74,7 @@ development_status:
   3-3-complete-and-delete-todo-ui: done
   3-4-mobile-responsive-layout: done
   3-5-docker-containerisation: done
-  3-6-test-coverage-analysis-and-enforcement: review
-  3-7-accessibility-audit: backlog
+  3-6-test-coverage-analysis-and-enforcement: done
+  3-7-accessibility-audit: review
   3-8-security-review-and-performance-baseline: backlog
   epic-3-retrospective: optional
