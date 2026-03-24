@@ -75,6 +75,6 @@ development_status:
   3-4-mobile-responsive-layout: done
   3-5-docker-containerisation: done
   3-6-test-coverage-analysis-and-enforcement: done
-  3-7-accessibility-audit: review
-  3-8-security-review-and-performance-baseline: ready-for-dev
+  3-7-accessibility-audit: done
+  3-8-security-review-and-performance-baseline: in-progress
   epic-3-retrospective: optional
