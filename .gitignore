@@ -22,6 +22,7 @@ lerna-debug.log*
 coverage/
 lcov.info
 .nyc_output/
+test-results/
 
 # Moon cache and generated output
 .moon/cache/
