@@ -73,6 +73,7 @@ export default defineConfig({
       '**/node_modules/**',
       '**/dist/**',
       '**/*.mocks.spec.ts',
+      'e2e/**',
     ],
     coverage: {
       provider: 'v8',
@@ -88,7 +89,6 @@ export default defineConfig({
         '_snapshots_',
         'coverage',
         'dist/**',
-        '**/test/**',
         'e2e/**',
         'public/**',
         '*.mjs',

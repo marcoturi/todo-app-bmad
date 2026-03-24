@@ -6,7 +6,7 @@ export const userApi = baseApi
   .injectEndpoints({
     endpoints: (build) => ({
       getUser: build.query<UserResponseDto, void>({
-        query: () => 'users',
+        query: () => 'api/v1/users',
       }),
     }),
     overrideExisting: false,
