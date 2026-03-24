@@ -25,10 +25,7 @@ export function TodoItem({ todo }: TodoItemProps) {
       aria-label={
         todo.completed ? `${todo.description} (completed)` : todo.description
       }
-      className={cn(
-        'flex flex-col rounded-md border bg-card shadow-sm',
-        todo.completed && 'opacity-60',
-      )}
+      className={cn('flex flex-col rounded-md border bg-card shadow-sm')}
     >
       <div className="flex items-center gap-3 px-4 py-3">
         {/* biome-ignore lint/a11y/useSemanticElements: custom toggle uses role=checkbox for aria-checked semantics per story spec */}
@@ -85,7 +82,7 @@ export function TodoItem({ todo }: TodoItemProps) {
           data-testid="todo-delete-button"
           disabled={isUpdating || isDeleting}
           onClick={() => deleteTodo({ id: todo.id })}
-          className="ml-auto min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground hover:text-destructive disabled:opacity-50 disabled:cursor-not-allowed"
+          className="ml-auto min-h-[44px] min-w-[44px] flex items-center justify-center text-muted-foreground hover:text-destructive disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <svg
             className="h-4 w-4"
@@ -115,7 +112,7 @@ export function TodoItem({ todo }: TodoItemProps) {
             type="button"
             aria-label="Dismiss update error"
             onClick={resetUpdate}
-            className="ml-4 underline hover:no-underline"
+            className="ml-4 underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Dismiss
           </button>
@@ -133,7 +130,7 @@ export function TodoItem({ todo }: TodoItemProps) {
             type="button"
             aria-label="Dismiss delete error"
             onClick={resetDelete}
-            className="ml-4 underline hover:no-underline"
+            className="ml-4 underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Dismiss
           </button>

@@ -28,7 +28,7 @@ export function TodoList() {
         <button
           type="button"
           onClick={() => refetch()}
-          className="mt-2 text-sm underline hover:no-underline"
+          className="mt-2 text-sm underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           Retry
         </button>
@@ -40,6 +40,7 @@ export function TodoList() {
     return (
       <p
         data-testid="todo-list-empty"
+        aria-live="polite"
         className="text-muted-foreground py-8 text-center"
       >
         No tasks yet — add one above!
