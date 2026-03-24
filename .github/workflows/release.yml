@@ -148,6 +148,9 @@ jobs:
       - name: E2E tests — web (Cucumber/Playwright)
         run: pnpm --filter @todo-app/web test:e2e
 
+      - name: Accessibility tests — web (Playwright/axe)
+        run: pnpm --filter @todo-app/web test:a11y
+
   # ─────────────────────────────────────────────────────────────────────────────
   # Release: semantic-release for api + web
   # Only runs on push to main after CI + E2E pass

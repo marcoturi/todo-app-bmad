@@ -6,7 +6,11 @@ const getWorldParameters = () => {
 
 const config = {
   requireModule: ['ts-node/register'],
-  require: ['e2e/**/*.ts'],
+  require: [
+    'e2e/steps/**/*.ts',
+    'e2e/support/**/*.ts',
+    'e2e/page-objects/**/*.ts',
+  ],
   paths: ['e2e/**/*.feature'],
   format: [
     'json:reports/cucumber-report.json',
