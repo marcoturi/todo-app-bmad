@@ -76,5 +76,5 @@ development_status:
   3-5-docker-containerisation: done
   3-6-test-coverage-analysis-and-enforcement: done
   3-7-accessibility-audit: done
-  3-8-security-review-and-performance-baseline: in-progress
+  3-8-security-review-and-performance-baseline: done
   epic-3-retrospective: optional
