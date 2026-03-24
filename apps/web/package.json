@@ -14,7 +14,7 @@
     "e2e:local": "TS_NODE_PROJECT=./e2e/tsconfig.e2e.json SERVER_URL=http://localhost:5173 cucumber-js",
     "e2e:debug": "TS_NODE_PROJECT=./e2e/tsconfig.e2e.json SERVER_URL=http://localhost:5173 cucumber-js --tags '@only' --fail-fast",
     "test": "vitest run",
-    "test:a11y": "npx playwright test e2e/a11y/ --config=playwright.config.ts",
+    "test:a11y": "pnpm exec playwright test e2e/a11y/ --config=playwright.config.ts",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "TS_NODE_PROJECT=./e2e/tsconfig.e2e.json SERVER_URL=http://localhost:5173 cucumber-js",
     "format": "biome format --write .",

@@ -10,6 +10,7 @@ export function TodoList() {
       <output
         data-testid="todo-list-loading"
         aria-busy="true"
+        aria-live="polite"
         aria-label="Loading tasks"
       >
         <SkeletonList className="py-4" />

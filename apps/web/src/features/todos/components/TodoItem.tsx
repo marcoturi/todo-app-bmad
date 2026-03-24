@@ -25,7 +25,10 @@ export function TodoItem({ todo }: TodoItemProps) {
       aria-label={
         todo.completed ? `${todo.description} (completed)` : todo.description
       }
-      className={cn('flex flex-col rounded-md border bg-card shadow-sm')}
+      className={cn(
+        'flex flex-col rounded-md border bg-card shadow-sm',
+        todo.completed && 'bg-muted',
+      )}
     >
       <div className="flex items-center gap-3 px-4 py-3">
         {/* biome-ignore lint/a11y/useSemanticElements: custom toggle uses role=checkbox for aria-checked semantics per story spec */}
