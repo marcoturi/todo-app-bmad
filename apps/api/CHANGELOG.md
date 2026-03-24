@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/marcoturi/todo-app-bmad/compare/v1.6.0...v1.6.1) (2026-03-23)
+
+
+### Bug Fixes
+
+* **web:** add resolve alias so vitest can resolve @/ paths in test files ([c3b5530](https://github.com/marcoturi/todo-app-bmad/commit/c3b55308b35c69fb7c8802a12fb67cd723e6e6ee))
+
 # [1.6.0](https://github.com/marcoturi/todo-app-bmad/compare/v1.5.0...v1.6.0) (2026-03-10)
 
 
