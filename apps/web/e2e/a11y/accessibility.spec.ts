@@ -24,6 +24,13 @@ async function deleteTodoViaAPI(id: string): Promise<void> {
   }
 }
 
+function parseDurationToMs(value: string): number {
+  const match = value.match(/^([\d.]+)(ms|s)$/);
+  if (!match) return 0;
+  const num = Number.parseFloat(match[1]);
+  return match[2] === 's' ? num * 1000 : num;
+}
+
 function formatViolations(
   violations: {
     id: string;
@@ -289,11 +296,10 @@ test.describe('Accessibility Audit', () => {
       });
 
       expect(durations).not.toBeNull();
-      // The global rule sets 0.01ms
-      expect(
-        durations!.animationDuration === '0s' ||
-          durations!.animationDuration === '0.01ms',
-      ).toBe(true);
+      // The global rule sets 0.01ms — browsers may serialize as
+      // "0s", "0.01ms", or "0.00001s"; just verify it's ≤ 1ms.
+      const durationMs = parseDurationToMs(durations!.animationDuration);
+      expect(durationMs).toBeLessThanOrEqual(1);
 
       const results = await new AxeBuilder({ page })
         .withTags(wcagTags)
