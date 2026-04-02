@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.4...v1.7.5) (2026-04-02)
+
+
+### Bug Fixes
+
+* **deps:** update opentelemetry-js monorepo ([#11](https://github.com/marcoturi/todo-app-bmad/issues/11)) ([43338f7](https://github.com/marcoturi/todo-app-bmad/commit/43338f7e829218c6a8aeabd5c415922a48635661))
+
 ## [1.7.4](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.3...v1.7.4) (2026-04-01)
 
 
