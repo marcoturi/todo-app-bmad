@@ -88,7 +88,7 @@ importers:
         version: 5.2.5
       '@fastify/type-provider-typebox':
         specifier: 6.1.0
-        version: 6.1.0(typebox@1.1.13)
+        version: 6.1.0(typebox@1.1.14)
       '@fastify/under-pressure':
         specifier: 9.0.3
         version: 9.0.3
@@ -129,8 +129,8 @@ importers:
         specifier: 3.4.8
         version: 3.4.8
       typebox:
-        specifier: 1.1.13
-        version: 1.1.13
+        specifier: 1.1.14
+        version: 1.1.14
     devDependencies:
       '@types/k6':
         specifier: 1.7.0
@@ -272,8 +272,8 @@ importers:
   packages/shared:
     dependencies:
       typebox:
-        specifier: 1.1.13
-        version: 1.1.13
+        specifier: 1.1.14
+        version: 1.1.14
 
 packages:
 
@@ -4917,8 +4917,8 @@ packages:
     resolution: {integrity: sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw==}
     engines: {node: '>=20'}
 
-  typebox@1.1.13:
-    resolution: {integrity: sha512-v20YJLaD27Ae3C94o3WvlyZC5OyhTA9JpCn3fe/WwFBQLo35Wz/T6C8i5+7h0CO7l7iI1CPo9GPEMF56wl07yQ==}
+  typebox@1.1.14:
+    resolution: {integrity: sha512-R9qoa9IE8Yevoy06ixre1VkribJwOl1wj5fq60gUK6Qxkd2Cw+omHEaHnJh+uE4ewMjLWweR3RERKvhjEtLWsA==}
 
   typescript@5.9.3:
     resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
@@ -5810,9 +5810,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@fastify/type-provider-typebox@6.1.0(typebox@1.1.13)':
+  '@fastify/type-provider-typebox@6.1.0(typebox@1.1.14)':
     dependencies:
-      typebox: 1.1.13
+      typebox: 1.1.14
 
   '@fastify/under-pressure@9.0.3':
     dependencies:
@@ -9943,7 +9943,7 @@ snapshots:
     dependencies:
       tagged-tag: 1.0.0
 
-  typebox@1.1.13: {}
+  typebox@1.1.14: {}
 
   typescript@5.9.3: {}
 
