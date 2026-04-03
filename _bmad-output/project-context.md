@@ -310,6 +310,8 @@ src/
 - Every story must own its complete test suite — unit tests AND E2E tests are acceptance criteria, not follow-on work.
 - Never create standalone QA-only or testing-only stories. If a feature story is too large, split it by architectural layer (e.g. one story for BE + its unit tests + its Cucumber E2E; one story for FE + its unit tests + its Playwright E2E), but each story part must carry its own tests.
 - A feature is not `done` until all tests (unit + E2E) defined in its ACs pass. Merging implementation without accompanying tests is a definition-of-done violation.
+- **Before marking any story done, verify the running application via Chrome DevTools MCP.** Launch the app, check that API endpoints return correct responses, and confirm the UI renders and behaves correctly in the browser. Test suites passing is necessary but not sufficient — the actual running system must be validated.
+- **Before marking any story done, verify the CI pipeline passes.** Run the full build, lint, typecheck, and test pipeline. If the pipeline breaks from your changes, fix it before marking the story done. A broken pipeline means the story is not done.
 
 ---
 
@@ -365,4 +367,4 @@ src/
 - Update when technology stack or architecture decisions change.
 - Remove rules that become obvious over time.
 
-_Last Updated: 2026-03-07_
+_Last Updated: 2026-03-24_

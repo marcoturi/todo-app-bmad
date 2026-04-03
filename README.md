@@ -1,6 +1,10 @@
 # todo-app-bmad
 
-A full-stack todo application built with Fastify (Node.js) and React, managed as a pnpm monorepo with Moon.
+## Description
+
+A full-stack todo application built with Fastify (Node.js) and React, managed as a pnpm monorepo.
+
+**Features:** create, complete, and delete todos — with a mobile-responsive UI, full Docker support, 70% test coverage enforcement, accessibility audit, and automated semantic releases.
 
 ## Prerequisites
 
@@ -25,11 +29,10 @@ The exact Node.js version used in this project is `24.11.0` (see `.nvmrc`). If y
 │   └── web/              → React + Redux frontend (Vite 7, Tailwind 4, shadcn/ui)
 ├── packages/
 │   └── shared/           → Shared TypeScript types for the API contract (@todo-app/shared)
-├── docker-compose.yml    → PostgreSQL service for local development
+├── docker-compose.yml    → Full-stack Docker Compose (postgres, api, web)
 ├── .github/
 │   └── workflows/
 │       └── release.yml   → CI (lint+types+tests+coverage) → E2E → Release (semantic-release)
-├── .moon/                → Moon monorepo task runner configuration
 ├── .nvmrc                → Node.js version pin (24.11.0)
 └── pnpm-workspace.yaml   → pnpm workspace members
 ```
@@ -139,13 +142,12 @@ All test commands are run from the **monorepo root** using `--filter`.
 | Command | Description |
 |---|---|
 | `pnpm --filter @todo-app/api test` | Backend unit tests (Node test runner) |
-| `pnpm --filter @todo-app/api test:coverage` | Backend unit tests with coverage report (c8, 10% threshold) |
+| `pnpm --filter @todo-app/api test:coverage` | Backend unit tests with coverage report (c8, 70% threshold) |
 | `pnpm --filter @todo-app/api test:e2e` | Backend Cucumber E2E tests (requires running PostgreSQL) |
 | `pnpm --filter @todo-app/web test` | Frontend unit tests (Vitest) |
-| `pnpm --filter @todo-app/web test:coverage` | Frontend unit tests with coverage report (Vitest + @vitest/coverage-v8, 10% threshold) |
+| `pnpm --filter @todo-app/web test:coverage` | Frontend unit tests with coverage report (Vitest + @vitest/coverage-v8, 70% threshold) |
 | `pnpm --filter @todo-app/web test:e2e` | Frontend Playwright E2E tests (requires running frontend dev server) |
-
-> **Note:** `pnpm --filter @todo-app/web test:a11y` (accessibility audit) will be implemented in Story 3.8 — the script does not exist yet and will return "script not found" if run.
+| `pnpm --filter @todo-app/web test:a11y` | Accessibility audit (Playwright + axe-core, requires running frontend dev server) |
 
 ### Additional quality checks
 
@@ -168,38 +170,37 @@ The CI/CD pipeline is defined in `.github/workflows/release.yml` and runs three 
 
 | Job | Trigger | What it does |
 |---|---|---|
-| **`ci`** | Every push / PR | Biome lint + format check, TypeScript type-check, dependency-cruiser architecture validation, unit tests + coverage (10% threshold) across all workspaces |
-| **`e2e`** | After `ci` passes | Spins up a PostgreSQL service container, runs DB migrations, executes backend Cucumber E2E and frontend Playwright E2E test suites |
+| **`ci`** | Every push / PR | Biome lint + format check, TypeScript type-check, dependency-cruiser architecture validation, unit tests + coverage (70% threshold) across all workspaces |
+| **`e2e`** | After `ci` passes | Spins up a PostgreSQL service container, runs DB migrations, executes backend Cucumber E2E, frontend Playwright E2E, and accessibility (axe-core) test suites |
 | **`release`** | After `ci` + `e2e` pass, push to `main` only | Runs semantic-release independently for `@todo-app/api` and `@todo-app/web` |
-
-> Coverage thresholds are currently set to **10%** (bootstrapping baseline). Story 3.7 will raise them to **70%**.
 
 ---
 
-## Docker (Full Stack) — Coming in Story 3.6
+## Docker (Full Stack)
 
-> ⚠️ **Not yet available.** Full-stack Docker Compose (with `api` and `web` services) is the deliverable of **Story 3.6 (Docker Containerisation)**. The `docker-compose.yml` at the monorepo root currently only defines the `postgres` service used for local development.
-
-**What works today (postgres only):**
-
-```bash
-# Start only the database (already covered in Local Development above)
-docker compose up postgres -d
-```
-
-**What is coming in Story 3.6:**
-
-Once Story 3.6 is complete, you will be able to run the entire stack with:
+Run the entire application with Docker Compose — no local Node.js or pnpm required (only Docker).
 
 ```bash
 # Copy the root .env.example to .env
 cp .env.example .env
 
-# Build and start all services (api, web, postgres)
+# Build and start all services (postgres, api, web)
 docker compose up --build
 ```
 
-After Story 3.6, the frontend will be accessible at the port defined in the root `.env`, and the API will be accessible at its configured port. Check back once Story 3.6 is merged.
+| Service | URL | Description |
+|---|---|---|
+| **web** | http://localhost | Nginx-served React frontend |
+| **api** | http://localhost:3000 | Fastify REST API |
+| **postgres** | localhost:5432 | PostgreSQL 17 database |
+
+The API service waits for PostgreSQL to be healthy and runs migrations on startup. The web service waits for the API to be healthy.
+
+**Test profile** — spin up an isolated E2E test database alongside the full stack:
+
+```bash
+POSTGRES_DB=todos_test docker compose --profile test up --wait
+```
 
 ---
 
