@@ -1,3 +1,10 @@
+## [1.7.10](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.9...v1.7.10) (2026-04-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency postgres to v3.4.9 ([#36](https://github.com/marcoturi/todo-app-bmad/issues/36)) ([7f24820](https://github.com/marcoturi/todo-app-bmad/commit/7f24820146b5864c588777c77dba2ce715c142da))
+
 ## [1.7.9](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.8...v1.7.9) (2026-04-04)
 
 
