@@ -60,7 +60,7 @@
     "fastify": "5.8.4",
     "fastify-plugin": "5.1.0",
     "postgres": "3.4.9",
-    "typebox": "1.1.14"
+    "typebox": "1.1.20"
   },
   "devDependencies": {
     "@types/k6": "1.7.0",
