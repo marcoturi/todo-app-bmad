@@ -1,3 +1,10 @@
+## [1.7.15](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.14...v1.7.15) (2026-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/react to v10.48.0 ([#43](https://github.com/marcoturi/todo-app-bmad/issues/43)) ([9822aac](https://github.com/marcoturi/todo-app-bmad/commit/9822aaca29e37a87380ce7e0a7c13c1b709d8a07))
+
 ## [1.7.14](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.13...v1.7.14) (2026-04-11)
 
 
