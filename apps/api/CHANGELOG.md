@@ -1,3 +1,10 @@
+## [1.7.14](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.13...v1.7.14) (2026-04-11)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19.2.5 ([#41](https://github.com/marcoturi/todo-app-bmad/issues/41)) ([6cf0fca](https://github.com/marcoturi/todo-app-bmad/commit/6cf0fcaa1f428573b55bd692d9fd38009d9adc66))
+
 ## [1.7.13](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.12...v1.7.13) (2026-04-10)
 
 
