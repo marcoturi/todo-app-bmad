@@ -1,3 +1,10 @@
+## [1.7.17](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.16...v1.7.17) (2026-05-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @opentelemetry/sdk-node to v0.217.0 [security] ([#45](https://github.com/marcoturi/todo-app-bmad/issues/45)) ([fa4749c](https://github.com/marcoturi/todo-app-bmad/commit/fa4749ce048161d188d431b7002d13c8614cb063))
+
 ## [1.7.16](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.15...v1.7.16) (2026-04-16)
 
 
