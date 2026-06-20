@@ -1,3 +1,10 @@
+## [1.7.18](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.17...v1.7.18) (2026-06-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/swagger-ui to v5.2.6 ([#53](https://github.com/marcoturi/todo-app-bmad/issues/53)) ([b918db4](https://github.com/marcoturi/todo-app-bmad/commit/b918db4d618a78da6903677f60a8386d7b922abe))
+
 ## [1.7.17](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.16...v1.7.17) (2026-05-11)
 
 
