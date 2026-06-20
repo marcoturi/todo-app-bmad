@@ -62,7 +62,7 @@
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react-swc": "4.3.1",
     "@vitest/coverage-v8": "4.1.4",
-    "fs-extra": "11.3.4",
+    "fs-extra": "11.3.5",
     "jsdom": "28.1.0",
     "tailwindcss": "4.2.2",
     "ts-node": "10.9.2",
