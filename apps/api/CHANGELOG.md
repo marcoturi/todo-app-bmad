@@ -1,3 +1,10 @@
+## [1.7.20](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.19...v1.7.20) (2026-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-error-boundary to v6.1.2 ([#55](https://github.com/marcoturi/todo-app-bmad/issues/55)) ([ce5e00a](https://github.com/marcoturi/todo-app-bmad/commit/ce5e00af51778c3faf017ccbecebe895cba42694))
+
 ## [1.7.19](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.18...v1.7.19) (2026-06-21)
 
 
