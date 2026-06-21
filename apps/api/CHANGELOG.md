@@ -1,3 +1,10 @@
+## [1.7.19](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.18...v1.7.19) (2026-06-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency awilix to v13.0.5 ([#54](https://github.com/marcoturi/todo-app-bmad/issues/54)) ([847ab75](https://github.com/marcoturi/todo-app-bmad/commit/847ab75364d77ef84aca994f1258aa5163070590))
+
 ## [1.7.18](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.17...v1.7.18) (2026-06-20)
 
 
