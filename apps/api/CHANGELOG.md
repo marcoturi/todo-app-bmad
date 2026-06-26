@@ -1,3 +1,10 @@
+## [1.7.24](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.23...v1.7.24) (2026-06-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @reduxjs/toolkit to v2.12.0 ([#72](https://github.com/marcoturi/todo-app-bmad/issues/72)) ([dd8b8cc](https://github.com/marcoturi/todo-app-bmad/commit/dd8b8cc7c97513a5b63ec5a62fab8078083dc5b2))
+
 ## [1.7.23](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.22...v1.7.23) (2026-06-25)
 
 
