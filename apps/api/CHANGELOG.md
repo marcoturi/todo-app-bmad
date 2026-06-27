@@ -1,3 +1,10 @@
+## [1.7.27](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.26...v1.7.27) (2026-06-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ajv to v8.20.0 ([#75](https://github.com/marcoturi/todo-app-bmad/issues/75)) ([767fec6](https://github.com/marcoturi/todo-app-bmad/commit/767fec65109c465ec9e759dc5e7a834a25e014ba))
+
 ## [1.7.26](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.25...v1.7.26) (2026-06-27)
 
 
