@@ -1,3 +1,10 @@
+## [1.7.30](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.29...v1.7.30) (2026-06-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tailwind-merge to v3.6.0 ([#78](https://github.com/marcoturi/todo-app-bmad/issues/78)) ([c48c32e](https://github.com/marcoturi/todo-app-bmad/commit/c48c32e8a33bede1f7d6be57c88408707139e183))
+
 ## [1.7.29](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.28...v1.7.29) (2026-06-27)
 
 
