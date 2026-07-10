@@ -2,7 +2,7 @@
   "name": "todo-app-bmad",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@10.34.4",
+  "packageManager": "pnpm@10.34.5",
   "engines": {
     "node": ">=24",
     "pnpm": ">=10"
