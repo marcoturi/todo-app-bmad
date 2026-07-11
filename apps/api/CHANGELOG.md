@@ -1,3 +1,10 @@
+## [1.7.33](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.32...v1.7.33) (2026-07-11)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-router-dom to v7.18.1 ([#91](https://github.com/marcoturi/todo-app-bmad/issues/91)) ([d78c624](https://github.com/marcoturi/todo-app-bmad/commit/d78c6245c0b739112e142fe0cbccc2982d81d344))
+
 ## [1.7.32](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.31...v1.7.32) (2026-06-28)
 
 
