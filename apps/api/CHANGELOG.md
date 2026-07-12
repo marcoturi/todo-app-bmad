@@ -1,3 +1,10 @@
+## [1.7.37](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.36...v1.7.37) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/cors to v11.3.0 ([#96](https://github.com/marcoturi/todo-app-bmad/issues/96)) ([d4d7279](https://github.com/marcoturi/todo-app-bmad/commit/d4d7279b5465cdc8595d8c3a85708f6ee3906838))
+
 ## [1.7.36](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.35...v1.7.36) (2026-07-12)
 
 
