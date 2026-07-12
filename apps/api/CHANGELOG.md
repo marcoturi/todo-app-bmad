@@ -1,3 +1,10 @@
+## [1.7.38](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.37...v1.7.38) (2026-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/helmet to v13.1.0 ([#97](https://github.com/marcoturi/todo-app-bmad/issues/97)) ([2d023b1](https://github.com/marcoturi/todo-app-bmad/commit/2d023b18ccfb51aba8f9fb12ad6a3c1f69256c49))
+
 ## [1.7.37](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.36...v1.7.37) (2026-07-12)
 
 

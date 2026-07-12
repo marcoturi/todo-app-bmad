@@ -1,6 +1,6 @@
 {
   "name": "@todo-app/api",
-  "version": "1.7.37",
+  "version": "1.7.38",
   "description": "Todo App API - Fastify REST backend following Clean Architecture principles.",
   "author": "Marco Turi <marco.turi@hotmail.it>",
   "license": "MIT",
