@@ -1,3 +1,10 @@
+## [1.7.39](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.38...v1.7.39) (2026-07-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/otel to v0.20.1 ([#98](https://github.com/marcoturi/todo-app-bmad/issues/98)) ([c1e4fb0](https://github.com/marcoturi/todo-app-bmad/commit/c1e4fb0e52c43c8e1ee9a59dd07681853d8da4e8))
+
 ## [1.7.38](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.37...v1.7.38) (2026-07-12)
 
 
