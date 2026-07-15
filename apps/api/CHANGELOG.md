@@ -1,3 +1,10 @@
+## [1.7.43](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.42...v1.7.43) (2026-07-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fastify to v5.10.0 ([#103](https://github.com/marcoturi/todo-app-bmad/issues/103)) ([76e76f7](https://github.com/marcoturi/todo-app-bmad/commit/76e76f7de621594115b0bfa45c094f9aca1e8db4))
+
 ## [1.7.42](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.41...v1.7.42) (2026-07-15)
 
 
