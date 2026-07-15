@@ -1,3 +1,10 @@
+## [1.7.41](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.40...v1.7.41) (2026-07-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/under-pressure to v9.1.0 ([#101](https://github.com/marcoturi/todo-app-bmad/issues/101)) ([8d00496](https://github.com/marcoturi/todo-app-bmad/commit/8d004969b90090673ce95fab3d20239e92f553ba))
+
 ## [1.7.40](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.39...v1.7.40) (2026-07-14)
 
 
