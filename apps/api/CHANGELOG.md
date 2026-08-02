@@ -1,3 +1,10 @@
+## [1.7.55](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.54...v1.7.55) (2026-08-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typebox to v1.3.10 ([#126](https://github.com/marcoturi/todo-app-bmad/issues/126)) ([dd1c920](https://github.com/marcoturi/todo-app-bmad/commit/dd1c9209824b29bcdc7f0d78b21ae13e565b60ee))
+
 ## [1.7.54](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.53...v1.7.54) (2026-08-02)
 
 
