@@ -1,3 +1,10 @@
+## [1.7.59](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.58...v1.7.59) (2026-11-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @opentelemetry/instrumentation-http to v0.222.0 [security] ([#135](https://github.com/marcoturi/todo-app-bmad/issues/135)) ([e9a9194](https://github.com/marcoturi/todo-app-bmad/commit/e9a9194e0497d7497e41c60d57a60cea529392df))
+
 ## [1.7.58](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.57...v1.7.58) (2026-10-24)
 
 
