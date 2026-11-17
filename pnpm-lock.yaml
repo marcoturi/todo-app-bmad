@@ -67,7 +67,7 @@ importers:
         version: 6.5.1
       '@fastify/awilix':
         specifier: 8.2.0
-        version: 8.2.0(awilix@13.0.6)(fastify@5.12.8)
+        version: 8.2.0(awilix@13.0.7)(fastify@5.12.8)
       '@fastify/cors':
         specifier: 11.3.0
         version: 11.3.0
@@ -114,8 +114,8 @@ importers:
         specifier: 3.0.1
         version: 3.0.1(ajv@8.20.0)
       awilix:
-        specifier: 13.0.6
-        version: 13.0.6
+        specifier: 13.0.7
+        version: 13.0.7
       env-schema:
         specifier: 7.0.0
         version: 7.0.0
@@ -3050,8 +3050,8 @@ packages:
     peerDependencies:
       awilix: '>=9.0.0'
 
-  awilix@13.0.6:
-    resolution: {integrity: sha512-1ECxdwGDosaeNetnXHbRe49mtEtGDrLf6q+VmBnq7sXIp8zcyj/34by80d5C4AS6Cd1SGVC3PpGWQbMQTZk3Mw==}
+  awilix@13.0.7:
+    resolution: {integrity: sha512-M7B1oVIyWrkY7RmQgczsdqpCI+j0+t0UjL5h1G/qqr4fRFo+zxI5E/0QUuOc5zdPg740BpUv4V+QSXNNBQlonQ==}
     engines: {node: '>=20.0.0'}
 
   axe-core@4.12.1:
@@ -6084,10 +6084,10 @@ snapshots:
 
   '@fastify/autoload@6.5.1': {}
 
-  '@fastify/awilix@8.2.0(awilix@13.0.6)(fastify@5.12.8)':
+  '@fastify/awilix@8.2.0(awilix@13.0.7)(fastify@5.12.8)':
     dependencies:
-      awilix: 13.0.6
-      awilix-manager: 6.3.0(awilix@13.0.6)
+      awilix: 13.0.7
+      awilix-manager: 6.3.0(awilix@13.0.7)
       fastify: 5.12.8
       fastify-plugin: 5.1.0
 
@@ -8383,11 +8383,11 @@ snapshots:
       '@fastify/error': 4.2.0
       fastq: 1.20.1
 
-  awilix-manager@6.3.0(awilix@13.0.6):
+  awilix-manager@6.3.0(awilix@13.0.7):
     dependencies:
-      awilix: 13.0.6
+      awilix: 13.0.7
 
-  awilix@13.0.6:
+  awilix@13.0.7:
     dependencies:
       fast-glob: 3.3.3
 
