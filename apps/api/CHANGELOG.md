@@ -1,3 +1,10 @@
+## [1.7.67](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.66...v1.7.67) (2026-11-21)
+
+
+### Bug Fixes
+
+* **deps:** update radix-ui-primitives monorepo ([#151](https://github.com/marcoturi/todo-app-bmad/issues/151)) ([2d21fa6](https://github.com/marcoturi/todo-app-bmad/commit/2d21fa6d71a40dd0eaef211055fc8a5015dcd620))
+
 ## [1.7.66](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.65...v1.7.66) (2026-11-21)
 
 
