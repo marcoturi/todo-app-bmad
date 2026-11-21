@@ -1,3 +1,10 @@
+## [1.7.65](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.64...v1.7.65) (2026-11-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency react-redux to v9.3.1 ([#149](https://github.com/marcoturi/todo-app-bmad/issues/149)) ([1cba838](https://github.com/marcoturi/todo-app-bmad/commit/1cba83834b7dc83ec7095bece210a116dc008717))
+
 ## [1.7.64](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.63...v1.7.64) (2026-11-17)
 
 
