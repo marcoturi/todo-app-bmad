@@ -41,7 +41,7 @@
     "@fastify/autoload": "6.6.0",
     "@fastify/awilix": "8.3.2",
     "@fastify/cors": "11.4.3",
-    "@fastify/helmet": "13.1.0",
+    "@fastify/helmet": "13.2.0",
     "@fastify/otel": "0.20.1",
     "@fastify/request-context": "6.2.1",
     "@fastify/swagger": "9.8.1",
