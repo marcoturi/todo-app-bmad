@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@fastify/autoload": "6.6.0",
-    "@fastify/awilix": "8.2.0",
+    "@fastify/awilix": "8.3.2",
     "@fastify/cors": "11.3.0",
     "@fastify/helmet": "13.1.0",
     "@fastify/otel": "0.20.1",

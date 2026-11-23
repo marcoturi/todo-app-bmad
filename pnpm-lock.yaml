@@ -66,8 +66,8 @@ importers:
         specifier: 6.6.0
         version: 6.6.0
       '@fastify/awilix':
-        specifier: 8.2.0
-        version: 8.2.0(awilix@13.0.7)(fastify@5.12.8)
+        specifier: 8.3.2
+        version: 8.3.2(awilix@13.0.7)(fastify@5.12.8)
       '@fastify/cors':
         specifier: 11.3.0
         version: 11.3.0
@@ -793,8 +793,8 @@ packages:
   '@fastify/autoload@6.6.0':
     resolution: {integrity: sha512-AuPwbdsc0PUlfGXx6NgSoP2HnNg5qV1jV+hezugkvQnJ3O4ygaCxF6Xdr5pgNm3t2mokXXmIW4HOLeSdqiAR+A==}
 
-  '@fastify/awilix@8.2.0':
-    resolution: {integrity: sha512-U5yygVXY8WJajDXE3w3FdU839NXaYJusxjTrcJGB82oUOeYvDpawB749aSCEJ+XFGE8QpB42Qtr4FI4z0wfXBw==}
+  '@fastify/awilix@8.3.2':
+    resolution: {integrity: sha512-ANOVy4ax5QYdDbR/p518/HxhOmbyucOC8okwNFl4omzVkBQaNQvZAOtR2HUjacI56v8LlGsqpP1r1tuLiLpa+w==}
     peerDependencies:
       awilix: '>=9.0.0'
       fastify: ^5.0.0
@@ -3045,9 +3045,9 @@ packages:
   avvio@9.2.0:
     resolution: {integrity: sha512-2t/sy01ArdHHE0vRH5Hsay+RtCZt3dLPji7W7/MMOCEgze5b7SNDC4j5H6FnVgPkI1MTNFGzHdHrVXDDl7QSSQ==}
 
-  awilix-manager@6.3.0:
-    resolution: {integrity: sha512-O91A1XhDxyDpTlm5SKcTZ40ogSM71XyAreHMRpSUB4igXsEUmrvIO0hp3Wt13FRwu28mIZTty6o1n7D+RyKZnw==}
-    engines: {node: '>=18'}
+  awilix-manager@7.2.0:
+    resolution: {integrity: sha512-mDGekPGrdPQ+KOGoNGilj2SdIEFthfg9QTAbisOQ2+dpG4coFii6GMik5HXmdXl6Z9jhZWYJJTFmNoTFlF1dKw==}
+    engines: {node: '>=22.13'}
     peerDependencies:
       awilix: '>=9.0.0'
 
@@ -6084,12 +6084,12 @@ snapshots:
 
   '@fastify/autoload@6.6.0': {}
 
-  '@fastify/awilix@8.2.0(awilix@13.0.7)(fastify@5.12.8)':
+  '@fastify/awilix@8.3.2(awilix@13.0.7)(fastify@5.12.8)':
     dependencies:
       awilix: 13.0.7
-      awilix-manager: 6.3.0(awilix@13.0.7)
+      awilix-manager: 7.2.0(awilix@13.0.7)
       fastify: 5.12.8
-      fastify-plugin: 5.1.0
+      fastify-plugin: 6.0.0
 
   '@fastify/cors@11.3.0':
     dependencies:
@@ -8385,7 +8385,7 @@ snapshots:
       '@fastify/error': 4.2.0
       fastq: 1.20.1
 
-  awilix-manager@6.3.0(awilix@13.0.7):
+  awilix-manager@7.2.0(awilix@13.0.7):
     dependencies:
       awilix: 13.0.7
 
