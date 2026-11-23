@@ -1,3 +1,10 @@
+## [1.7.69](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.68...v1.7.69) (2026-11-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/awilix to v8.3.2 ([#158](https://github.com/marcoturi/todo-app-bmad/issues/158)) ([d8161dc](https://github.com/marcoturi/todo-app-bmad/commit/d8161dcd1fb63760d3d2e1c46083b915da106a18))
+
 ## [1.7.68](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.67...v1.7.68) (2026-11-22)
 
 
