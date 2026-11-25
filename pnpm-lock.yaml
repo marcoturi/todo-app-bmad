@@ -210,7 +210,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.1
-        version: 4.14.0(playwright-core@1.65.1)
+        version: 4.14.1(playwright-core@1.65.1)
       '@playwright/test':
         specifier: 1.65.1
         version: 1.65.1
@@ -305,8 +305,8 @@ packages:
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
 
-  '@axe-core/playwright@4.14.0':
-    resolution: {integrity: sha512-SGUhG5PIHd2eMdpgBF2PyQLOhX+qyDR2PT4cmoS4Qk2ak+jX/rrSvst9l0PGv5WTHolKpUMvVmoHpr4cZgf1RQ==}
+  '@axe-core/playwright@4.14.1':
+    resolution: {integrity: sha512-cSN1ijrWLnlOof22sPN4RtWGSoPpt7GzOVyOKomyhnPsy1fPNoRdBiJAUziuCRs8KoK50kKufiMUFt7itAuwOg==}
     engines: {node: '>=22.12.0'}
     peerDependencies:
       playwright-core: '>= 1.0.0'
@@ -5325,8 +5325,8 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  until-async@3.0.2:
-    resolution: {integrity: sha512-IiSk4HlzAMqTUseHHe3VhIGyuFmN90zMTpD3Z3y8jeQbzLIq500MVM7Jq2vUAnTKAFPJrqwkzr6PoTcPhGcOiw==}
+  until-async@3.0.3:
+    resolution: {integrity: sha512-Ix78tBf1shsd8V8zc+msjiUk8Yf6upBuqR9iTgcWTyNFkTPy7hMonnsG/W6jhu53vrNTB0VZHxSNayRHrF+Auw==}
 
   upper-case-first@2.0.2:
     resolution: {integrity: sha512-514ppYHBaKwfJRK/pNC6c/OxfGa0obSnAl106u97Ed0I625Nin96KAjttZF6ZL3e1XLtphxnqrOi9iWgm+u+bg==}
@@ -5639,7 +5639,7 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@axe-core/playwright@4.14.0(playwright-core@1.65.1)':
+  '@axe-core/playwright@4.14.1(playwright-core@1.65.1)':
     dependencies:
       axe-core: 4.14.1
       playwright-core: 1.65.1
@@ -9622,7 +9622,7 @@ snapshots:
       strict-event-emitter: 0.5.1
       tough-cookie: 6.1.0
       type-fest: 5.10.0
-      until-async: 3.0.2
+      until-async: 3.0.3
       yargs: 17.7.3
     optionalDependencies:
       typescript: 5.9.3
@@ -10619,7 +10619,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  until-async@3.0.2:
+  until-async@3.0.3:
     optional: true
 
   upper-case-first@2.0.2:
