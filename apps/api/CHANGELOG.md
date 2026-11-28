@@ -1,3 +1,10 @@
+## [1.7.75](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.74...v1.7.75) (2026-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @fastify/type-provider-typebox to v6.3.0 ([#167](https://github.com/marcoturi/todo-app-bmad/issues/167)) ([54aadd3](https://github.com/marcoturi/todo-app-bmad/commit/54aadd3e36abc99be632fe4612d00b60fcc60a82))
+
 ## [1.7.74](https://github.com/marcoturi/todo-app-bmad/compare/v1.7.73...v1.7.74) (2026-11-28)
 
 
